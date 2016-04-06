@@ -1,0 +1,63 @@
+/* 
+  RecurrencePicker.strings
+  RecurrencePicker
+
+  Created by Xin Hong on 16/4/7.
+  Copyright © 2016年 Teambition. All rights reserved.
+*/
+
+"TBRPHelper.frequencies.daily" = "매일";
+"TBRPHelper.frequencies.weekly" = "매주";
+"TBRPHelper.frequencies.monthly" = "매월";
+"TBRPHelper.frequencies.yearly" = "매년";
+
+"TBRPHelper.units.day" = "일";
+"TBRPHelper.units.week" = "주";
+"TBRPHelper.units.month" = "개월";
+"TBRPHelper.units.year" = "년";
+
+"TBRPHelper.pluralUnits.days" = "일";
+"TBRPHelper.pluralUnits.weeks" = "주";
+"TBRPHelper.pluralUnits.months" = "개월";
+"TBRPHelper.pluralUnits.years" = "년";
+
+"TBRPHelper.presetRepeat.never" = "안 함";
+"TBRPHelper.presetRepeat.everyDay" = "매일";
+"TBRPHelper.presetRepeat.everyWeek" = "매주";
+"TBRPHelper.presetRepeat.everyTwoWeeks" = "2주마다";
+"TBRPHelper.presetRepeat.everyMonth" = "매월";
+"TBRPHelper.presetRepeat.everyYear" = "매년";
+"TBRPHelper.presetRepeat.everyWeekday" = "매주 평일마다";
+
+"TBRPHelper.numbersInWeekPicker.first" = "첫 번째";
+"TBRPHelper.numbersInWeekPicker.second" = "두 번째";
+"TBRPHelper.numbersInWeekPicker.third" = "세 번째";
+"TBRPHelper.numbersInWeekPicker.fourth" = "네 번째";
+"TBRPHelper.numbersInWeekPicker.fifth" = "다섯 번째";
+"TBRPHelper.numbersInWeekPicker.last" = "최근";
+
+"TBRPHelper.daysInWeekPicker.day" = "요일";
+"TBRPHelper.daysInWeekPicker.weekday" = "평일";
+"TBRPHelper.daysInWeekPicker.weekendDay" = "주말";
+
+"TBRPPresetRepeatController.navigation.title" = "반복";
+"TBRPPresetRepeatController.textLabel.custom" = "사용자 설정";
+
+"TBRPCustomRepeatController.textLabel.frequency" = "반복 주기";
+"TBRPCustomRepeatController.textLabel.interval" = "반복";
+"TBRPCustomRepeatController.textLabel.date" = "일자 지정";
+"TBRPCustomRepeatController.weekCell.onThe" = "조건 지정...";
+"TBRPCustomRepeatController.weekCell.daysOfWeek" = "요일";
+
+"RecurrenceString.presetRepeat" = "%@마다 이벤트 반복";
+"RecurrenceString.element.on.weekly" = "에";
+"RecurrenceString.element.on.monthly" = "에";
+"RecurrenceString.element.on.yearlyMonths" = "에";
+"RecurrenceString.element.on.yearlyMonths.byWeekNo" = "에";
+"RecurrenceString.element.on.yearlyWeekString" = "의";
+"RecurrenceString.element.and" = "및";
+"RecurrenceString.element.comma" = ",";
+"RecurrenceString.element.day" = "%d일";
+"RecurrenceString.specifiedDaysOrMonths" = "%@마다 %@ 이벤트 반복";
+"RecurrenceString.yearlyByWeekNoString" = "%@마다 %@ %@ 이벤트 반복";
+"RecurrenceString.weekdayRecurrence" = "매주 평일마다 이벤트 반복";

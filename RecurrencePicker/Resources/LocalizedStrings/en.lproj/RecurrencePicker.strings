@@ -1,0 +1,63 @@
+/* 
+  RecurrencePicker.strings
+  RecurrencePicker
+
+  Created by Xin Hong on 16/4/7.
+  Copyright © 2016年 Teambition. All rights reserved.
+*/
+
+"TBRPHelper.frequencies.daily" = "Daily";
+"TBRPHelper.frequencies.weekly" = "Weekly";
+"TBRPHelper.frequencies.monthly" = "Monthly";
+"TBRPHelper.frequencies.yearly" = "Yearly";
+
+"TBRPHelper.units.day" = "Day";
+"TBRPHelper.units.week" = "Week";
+"TBRPHelper.units.month" = "Month";
+"TBRPHelper.units.year" = "Year";
+
+"TBRPHelper.pluralUnits.days" = "days";
+"TBRPHelper.pluralUnits.weeks" = "weeks";
+"TBRPHelper.pluralUnits.months" = "months";
+"TBRPHelper.pluralUnits.years" = "years";
+
+"TBRPHelper.presetRepeat.never" = "Never";
+"TBRPHelper.presetRepeat.everyDay" = "Every Day";
+"TBRPHelper.presetRepeat.everyWeek" = "Every Week";
+"TBRPHelper.presetRepeat.everyTwoWeeks" = "Every 2 Weeks";
+"TBRPHelper.presetRepeat.everyMonth" = "Every Month";
+"TBRPHelper.presetRepeat.everyYear" = "Every Year";
+"TBRPHelper.presetRepeat.everyWeekday" = "Every Weekday";
+
+"TBRPHelper.numbersInWeekPicker.first" = "first";
+"TBRPHelper.numbersInWeekPicker.second" = "second";
+"TBRPHelper.numbersInWeekPicker.third" = "third";
+"TBRPHelper.numbersInWeekPicker.fourth" = "fourth";
+"TBRPHelper.numbersInWeekPicker.fifth" = "fifth";
+"TBRPHelper.numbersInWeekPicker.last" = "last";
+
+"TBRPHelper.daysInWeekPicker.day" = "day";
+"TBRPHelper.daysInWeekPicker.weekday" = "weekday";
+"TBRPHelper.daysInWeekPicker.weekendDay" = "weekend day";
+
+"TBRPPresetRepeatController.navigation.title" = "Repeat";
+"TBRPPresetRepeatController.textLabel.custom" = "Custom";
+
+"TBRPCustomRepeatController.textLabel.frequency" = "Frequency";
+"TBRPCustomRepeatController.textLabel.interval" = "Every";
+"TBRPCustomRepeatController.textLabel.date" = "Each";
+"TBRPCustomRepeatController.weekCell.onThe" = "On the...";
+"TBRPCustomRepeatController.weekCell.daysOfWeek" = "Days of Week";
+
+"RecurrenceString.presetRepeat" = "Event will occur every %@.";
+"RecurrenceString.element.on.weekly" = "on";
+"RecurrenceString.element.on.monthly" = "on the";
+"RecurrenceString.element.on.yearlyMonths" = "in";
+"RecurrenceString.element.on.yearlyMonths.byWeekNo" = "of";
+"RecurrenceString.element.on.yearlyWeekString" = "on the";
+"RecurrenceString.element.and" = "and";
+"RecurrenceString.element.comma" = ",";
+"RecurrenceString.element.day" = "";
+"RecurrenceString.specifiedDaysOrMonths" = "Event will occur every %@ %@.";
+"RecurrenceString.yearlyByWeekNoString" = "Event will occur every %@ %@ %@.";
+"RecurrenceString.weekdayRecurrence" = "Event will occur every weekday.";

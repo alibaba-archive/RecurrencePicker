@@ -1,0 +1,63 @@
+/* 
+  RecurrencePicker.strings
+  RecurrencePicker
+
+  Created by Xin Hong on 16/4/7.
+  Copyright © 2016年 Teambition. All rights reserved.
+*/
+
+"TBRPHelper.frequencies.daily" = "每天";
+"TBRPHelper.frequencies.weekly" = "每周";
+"TBRPHelper.frequencies.monthly" = "每月";
+"TBRPHelper.frequencies.yearly" = "每年";
+
+"TBRPHelper.units.day" = "天";
+"TBRPHelper.units.week" = "周";
+"TBRPHelper.units.month" = "月";
+"TBRPHelper.units.year" = "年";
+
+"TBRPHelper.pluralUnits.days" = "天";
+"TBRPHelper.pluralUnits.weeks" = "周";
+"TBRPHelper.pluralUnits.months" = "个月";
+"TBRPHelper.pluralUnits.years" = "年";
+
+"TBRPHelper.presetRepeat.never" = "永不";
+"TBRPHelper.presetRepeat.everyDay" = "每天";
+"TBRPHelper.presetRepeat.everyWeek" = "每周";
+"TBRPHelper.presetRepeat.everyTwoWeeks" = "每两周";
+"TBRPHelper.presetRepeat.everyMonth" = "每月";
+"TBRPHelper.presetRepeat.everyYear" = "每年";
+"TBRPHelper.presetRepeat.everyWeekday" = "每个工作日";
+
+"TBRPHelper.numbersInWeekPicker.first" = "第一个";
+"TBRPHelper.numbersInWeekPicker.second" = "第二个";
+"TBRPHelper.numbersInWeekPicker.third" = "第三个";
+"TBRPHelper.numbersInWeekPicker.fourth" = "第四个";
+"TBRPHelper.numbersInWeekPicker.fifth" = "第五个";
+"TBRPHelper.numbersInWeekPicker.last" = "最后一个";
+
+"TBRPHelper.daysInWeekPicker.day" = "自然日";
+"TBRPHelper.daysInWeekPicker.weekday" = "工作日";
+"TBRPHelper.daysInWeekPicker.weekendDay" = "周末";
+
+"TBRPPresetRepeatController.navigation.title" = "重复";
+"TBRPPresetRepeatController.textLabel.custom" = "自定义";
+
+"TBRPCustomRepeatController.textLabel.frequency" = "频率";
+"TBRPCustomRepeatController.textLabel.interval" = "每";
+"TBRPCustomRepeatController.textLabel.date" = "日期";
+"TBRPCustomRepeatController.weekCell.onThe" = "星期";
+"TBRPCustomRepeatController.weekCell.daysOfWeek" = "星期";
+
+"RecurrenceString.presetRepeat" = "事件将每%@重复一次。";
+"RecurrenceString.element.on.weekly" = "于";
+"RecurrenceString.element.on.monthly" = "于";
+"RecurrenceString.element.on.yearlyMonths" = "于";
+"RecurrenceString.element.on.yearlyMonths.byWeekNo" = "于";
+"RecurrenceString.element.on.yearlyWeekString" = "的";
+"RecurrenceString.element.and" = "和";
+"RecurrenceString.element.comma" = "、";
+"RecurrenceString.element.day" = "%d日";
+"RecurrenceString.specifiedDaysOrMonths" = "事件将每%@%@重复一次。";
+"RecurrenceString.yearlyByWeekNoString" = "事件将每%@%@%@重复一次。";
+"RecurrenceString.weekdayRecurrence" = "事件将每个工作日重复一次。";
