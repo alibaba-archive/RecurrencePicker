@@ -43,7 +43,7 @@ public extension RecurrenceRule {
             if isWeekdayRecurrence() {
                 return internationalControl.localizedString(key: "RecurrenceString.weekdayRecurrence")
             } else if interval == 1 && byweekday == [.Monday, .Tuesday, .Wednesday, .Thursday, .Friday, .Saturday, .Sunday].sort(<) {
-                return RecurrenceRule(recurrenceWithFrequency: .Daily).toText(language: language, occurrenceDate: occurrenceDate)
+                return RecurrenceRule(frequency: .Daily).toText(language: language, occurrenceDate: occurrenceDate)
             } else if byweekday.count == 1 && calendar.components([.Weekday], fromDate: occurrenceDate).weekday == byweekday.first!.rawValue {
                 return String(format: internationalControl.localizedString(key: "RecurrenceString.presetRepeat"), unitString)
             } else {

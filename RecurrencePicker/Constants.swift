@@ -10,11 +10,19 @@ import UIKit
 import RRuleSwift
 
 internal struct CellID {
+    static let commonCell = "CommonCell"
     static let basicRecurrenceCell = "BasicRecurrenceCell"
+    static let customRecurrenceViewCell = "CustomRecurrenceViewCell"
+    static let pickerViewCell = "PickerViewCell"
+    static let selectorItemCell = "SelectorItemCell"
+    static let monthOrDaySelectorCell = "MonthOrDaySelectorCell"
 }
 
 internal struct Constant {
     static let defaultRowHeight: CGFloat = 44
+    static let pickerViewCellHeight: CGFloat = 215
+    static let pickerRowHeight: CGFloat = 40
+    static let pickerMaxRowCount = 999
     static let detailTextColor = UIColor.grayColor()
 }
 

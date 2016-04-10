@@ -42,7 +42,80 @@ public class RecurrencePicker: UITableViewController {
             delegate?.recurrencePicker(self, didPickRecurrence: recurrenceRule)
         }
     }
+}
 
+extension RecurrencePicker {
+    // MARK: - Table view data source and delegate
+    public override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+
+    public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return Constant.basicRecurrenceStrings().count
+        } else {
+            return 1
+        }
+    }
+
+    public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return Constant.defaultRowHeight
+    }
+
+    public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCellWithIdentifier(CellID.basicRecurrenceCell)
+        if cell == nil {
+            cell = UITableViewCell(style: .Default, reuseIdentifier: CellID.basicRecurrenceCell)
+        }
+
+        if indexPath.section == 0 {
+            cell?.accessoryType = .None
+            cell?.textLabel?.text = Constant.basicRecurrenceStrings()[indexPath.row]
+        } else {
+            cell?.accessoryType = .DisclosureIndicator
+            cell?.textLabel?.text = LocalizedString(key: "TBRPPresetRepeatController.textLabel.custom")
+        }
+
+        let checkmark =  UIImage(named: "checkmark", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
+        cell?.imageView?.image = checkmark?.imageWithRenderingMode(.AlwaysTemplate)
+
+        if indexPath == selectedIndexPath {
+            cell?.imageView?.hidden = false
+        } else {
+            cell?.imageView?.hidden = true
+        }
+        return cell!
+    }
+
+    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let lastSelectedCell = tableView.cellForRowAtIndexPath(selectedIndexPath)
+        let currentSelectedCell = tableView.cellForRowAtIndexPath(indexPath)
+
+        lastSelectedCell?.imageView?.hidden = true
+        currentSelectedCell?.imageView?.hidden = false
+
+        selectedIndexPath = indexPath
+
+        if indexPath.section == 0 {
+            updateRecurrenceRule(withSelectedIndexPath: indexPath)
+            updateFooterTitle()
+            navigationController?.popViewControllerAnimated(true)
+        } else {
+            let customRecurrenceViewController = CustomRecurrenceViewController(style: .Grouped)
+            customRecurrenceViewController.occurrenceDate = occurrenceDate
+            customRecurrenceViewController.tintColor = tintColor
+            customRecurrenceViewController.delegate = self
+
+            customRecurrenceViewController.recurrenceRule = recurrenceRule ?? RecurrenceRule.dailyRecurrence()
+
+            navigationController?.pushViewController(customRecurrenceViewController, animated: true)
+        }
+
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+}
+
+extension RecurrencePicker {
     // MARK: - Helper
     private func commonInit() {
         navigationItem.title = LocalizedString(key: "TBRPPresetRepeatController.navigation.title")
@@ -123,80 +196,10 @@ public class RecurrencePicker: UITableViewController {
         tableView.endUpdates()
         footerView?.setNeedsLayout()
     }
+}
 
-    // MARK: - Table view data source and delegate
-    public override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
-    }
+extension RecurrencePicker: CustomRecurrenceViewControllerDelegate {
+    func customRecurrenceViewController(controller: CustomRecurrenceViewController, didPickRecurrence recurrenceRule: RecurrenceRule) {
 
-    public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return Constant.basicRecurrenceStrings().count
-        } else {
-            return 1
-        }
-    }
-
-    public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return Constant.defaultRowHeight
-    }
-
-    public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier(CellID.basicRecurrenceCell)
-        if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: CellID.basicRecurrenceCell)
-        }
-
-        if indexPath.section == 0 {
-            cell?.accessoryType = .None
-            cell?.textLabel?.text = Constant.basicRecurrenceStrings()[indexPath.row]
-        } else {
-            cell?.accessoryType = .DisclosureIndicator
-            cell?.textLabel?.text = LocalizedString(key: "TBRPPresetRepeatController.textLabel.custom")
-        }
-
-        let checkmark =  UIImage(named: "checkmark", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
-        cell?.imageView?.image = checkmark?.imageWithRenderingMode(.AlwaysTemplate)
-
-        if indexPath == selectedIndexPath {
-            cell?.imageView?.hidden = false
-        } else {
-            cell?.imageView?.hidden = true
-        }
-        return cell!
-    }
-
-    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let lastSelectedCell = tableView.cellForRowAtIndexPath(selectedIndexPath)
-        let currentSelectedCell = tableView.cellForRowAtIndexPath(indexPath)
-
-        lastSelectedCell?.imageView?.hidden = true
-        currentSelectedCell?.imageView?.hidden = false
-
-        selectedIndexPath = indexPath
-
-        if indexPath.section == 0 {
-            updateRecurrenceRule(withSelectedIndexPath: indexPath)
-            updateFooterTitle()
-            navigationController?.popViewControllerAnimated(true)
-        } else {
-//            navigationController?.popViewControllerAnimated(true)
-//            
-//            let customRepeatController = TBRPCustomRepeatController(style: .Grouped)
-//            customRepeatController.occurrenceDate = occurrenceDate
-//            customRepeatController.tintColor = tintColor
-//            customRepeatController.language = language
-//            
-//            if let _ = recurrence {
-//                customRepeatController.recurrence = recurrence!
-//            } else {
-//                customRepeatController.recurrence = TBRecurrence.dailyRecurrence(occurrenceDate)
-//            }
-//            customRepeatController.delegate = self
-//            
-//            navigationController?.pushViewController(customRepeatController, animated: true)
-        }
-
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
