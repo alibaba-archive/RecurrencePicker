@@ -24,6 +24,11 @@ internal struct Constant {
     static let pickerRowHeight: CGFloat = 40
     static let pickerMaxRowCount = 999
     static let detailTextColor = UIColor.grayColor()
+
+    static let selectorVerticalPadding: CGFloat = 1
+    static let gridLineWidth: CGFloat = 0.5
+    static let gridLineColor = UIColor(white: 187.0 / 255.0, alpha: 1)
+    static let gridLineName = "RecurrencePicker.GridSelectorViewGridLine"
 }
 
 internal extension Constant {

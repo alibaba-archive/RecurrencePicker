@@ -18,7 +18,9 @@ internal class MonthOrDaySelectorCell: UITableViewCell {
 
     internal var style: MonthOrDaySelectorStyle = .Day {
         didSet {
+            setNeedsDisplay()
             selectorView.reloadData()
+            selectorView.collectionViewLayout = GridSelectorLayout(style: style)
         }
     }
     internal var bymonthday = [Int]()
@@ -28,6 +30,7 @@ internal class MonthOrDaySelectorCell: UITableViewCell {
         super.awakeFromNib()
         selectionStyle = .None
         accessoryType = .None
+        selectorView.clipsToBounds = false
         let bundle = NSBundle(identifier: "Teambition.RecurrencePicker") ?? NSBundle.mainBundle()
         selectorView.registerNib(UINib(nibName: "SelectorItemCell", bundle: bundle), forCellWithReuseIdentifier: CellID.selectorItemCell)
     }
@@ -37,6 +40,77 @@ internal class MonthOrDaySelectorCell: UITableViewCell {
         for subview in subviews {
             if NSStringFromClass(subview.dynamicType) == "_UITableViewCellSeparatorView" {
                 subview.removeFromSuperview()
+            }
+        }
+    }
+
+    override func drawRect(rect: CGRect) {
+        super.drawRect(rect)
+        drawGridLines()
+    }
+}
+
+extension MonthOrDaySelectorCell {
+    private func drawGridLines() {
+        func removeAllGridLines() {
+            guard let sublayers = layer.sublayers else {
+                return
+            }
+            
+            for sublayer in sublayers {
+                if sublayer.name == Constant.gridLineName {
+                    sublayer.removeFromSuperlayer()
+                }
+            }
+        }
+
+        let itemSize = GridSelectorLayout.itemSizeWithStyle(style, selectorViewWidth: frame.width)
+
+        removeAllGridLines()
+        switch style {
+        case .Day:
+            // draw vertical lines
+            for index in 1...6 {
+                let xPosition = CGFloat(index) * itemSize.width - Constant.gridLineWidth / 2
+                let height = index < 4 ? (itemSize.height * CGFloat(5)) : (itemSize.height * CGFloat(4))
+                let lineFrame = CGRect(x: xPosition, y: Constant.selectorVerticalPadding, width: Constant.gridLineWidth, height: height)
+                let line = CAShapeLayer()
+                line.name = Constant.gridLineName
+                line.frame = lineFrame
+                line.backgroundColor = Constant.gridLineColor.CGColor
+                layer.addSublayer(line)
+            }
+            // draw horizontal lines
+            for index in 0...5 {
+                let yPosition = Constant.selectorVerticalPadding + CGFloat(index) * itemSize.height - Constant.gridLineWidth / 2
+                let width = index < 5 ? frame.width : (itemSize.width * CGFloat(3) + Constant.gridLineWidth / 2)
+                let lineFrame = CGRect(x: 0, y: yPosition, width: width, height: Constant.gridLineWidth)
+                let line = CAShapeLayer()
+                line.name = Constant.gridLineName
+                line.frame = lineFrame
+                line.backgroundColor = Constant.gridLineColor.CGColor
+                layer.addSublayer(line)
+            }
+        case .Month:
+            // draw vertical lines
+            for index in 1...3 {
+                let xPosition = CGFloat(index) * itemSize.width - Constant.gridLineWidth / 2
+                let lineFrame = CGRect(x: xPosition, y: Constant.selectorVerticalPadding, width: Constant.gridLineWidth, height: (itemSize.height * CGFloat(3)))
+                let line = CAShapeLayer()
+                line.name = Constant.gridLineName
+                line.frame = lineFrame
+                line.backgroundColor = Constant.gridLineColor.CGColor
+                layer.addSublayer(line)
+            }
+            // draw horizontal lines
+            for index in 0...3 {
+                let yPosition = Constant.selectorVerticalPadding + CGFloat(index) * itemSize.height - Constant.gridLineWidth / 2
+                let lineFrame = CGRect(x: 0, y: yPosition, width: frame.width, height: Constant.gridLineWidth)
+                let line = CAShapeLayer()
+                line.name = Constant.gridLineName
+                line.frame = lineFrame
+                line.backgroundColor = Constant.gridLineColor.CGColor
+                layer.addSublayer(line)
             }
         }
     }
@@ -54,6 +128,7 @@ extension MonthOrDaySelectorCell: UICollectionViewDataSource, UICollectionViewDe
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellID.selectorItemCell, forIndexPath: indexPath) as! SelectorItemCell
 
+        cell.tintColor = tintColor
         switch style {
         case .Day:
             cell.textLabel.text = String(indexPath.row + 1)
@@ -65,35 +140,9 @@ extension MonthOrDaySelectorCell: UICollectionViewDataSource, UICollectionViewDe
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-
-    }
-}
-
-extension MonthOrDaySelectorCell {
-    internal static func itemSizeWithStyle(style: MonthOrDaySelectorStyle, selectorViewWidth: CGFloat) -> CGSize {
-        switch style {
-        case .Day:
-            let width: CGFloat = selectorViewWidth / 7
-            let height: CGFloat = width * 0.9
-            return CGSize(width: floor(width), height: floor(height))
-        case .Month:
-            let width: CGFloat = selectorViewWidth / 4
-            let height: CGFloat = 44
-            return CGSize(width: floor(width), height: floor(height))
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? SelectorItemCell else {
+            return
         }
-    }
-}
-
-extension MonthOrDaySelectorCell: UICollectionViewDelegateFlowLayout {
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return MonthOrDaySelectorCell.itemSizeWithStyle(style, selectorViewWidth: frame.width)
-    }
-
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
-    }
-
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
+        cell.setItemSelected(!cell.isItemSelected)
     }
 }

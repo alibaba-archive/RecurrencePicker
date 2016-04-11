@@ -88,6 +88,25 @@ extension CustomRecurrenceViewController {
         }
     }
 
+    private func updateSelectorSection(newFrequency: RecurrenceFrequency) {
+        tableView.beginUpdates()
+        switch newFrequency {
+        case .Daily:
+            if tableView.numberOfSections == 2 {
+                tableView.deleteSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
+            }
+        case .Weekly, .Monthly, .Yearly:
+            if tableView.numberOfSections == 1 {
+                tableView.insertSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
+            } else {
+                tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
+            }
+        default:
+            break
+        }
+        tableView.endUpdates()
+    }
+
     private func unitStringForIntervalCell() -> String {
         if recurrenceRule.interval == 1 {
             return Constant.unitStrings()[recurrenceRule.frequency.number]
@@ -121,6 +140,9 @@ extension CustomRecurrenceViewController {
 extension CustomRecurrenceViewController {
     // MARK: - Table view data source and delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if recurrenceRule.frequency == .Daily {
+            return 1
+        }
         return 2
     }
 
@@ -141,9 +163,9 @@ extension CustomRecurrenceViewController {
             return Constant.pickerViewCellHeight
         } else if isSelectorViewCell(indexPath) {
             let style: MonthOrDaySelectorStyle = recurrenceRule.frequency == .Monthly ? .Day : .Month
-            let itemHeight = MonthOrDaySelectorCell.itemSizeWithStyle(style, selectorViewWidth: tableView.frame.width).height
+            let itemHeight = GridSelectorLayout.itemSizeWithStyle(style, selectorViewWidth: tableView.frame.width).height
             let itemCount: CGFloat = style == .Day ? 5 : 3
-            return itemHeight * itemCount
+            return ceil(itemHeight * itemCount) + Constant.selectorVerticalPadding * CGFloat(2)
         }
         return Constant.defaultRowHeight
     }
@@ -168,6 +190,7 @@ extension CustomRecurrenceViewController {
         } else if isSelectorViewCell(indexPath) {
             let cell = tableView.dequeueReusableCellWithIdentifier(CellID.monthOrDaySelectorCell, forIndexPath: indexPath) as! MonthOrDaySelectorCell
             cell.style = recurrenceRule.frequency == .Monthly ? .Day : .Month
+            cell.tintColor = tintColor
             return cell
         } else if indexPath.section == 0 {
             var cell = tableView.dequeueReusableCellWithIdentifier(CellID.customRecurrenceViewCell)
@@ -267,12 +290,28 @@ extension CustomRecurrenceViewController: PickerViewCellDelegate {
         recurrenceRule.frequency = frequency
         updateFrequencyCellText()
         updateIntervalCellText()
-        tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Fade)
+        updateSelectorSection(frequency)
         updateRecurrenceRuleText()
     }
 
     func pickerViewCell(cell: PickerViewCell, didSelectInterval interval: Int) {
         recurrenceRule.interval = interval
         updateIntervalCellText()
+    }
+}
+
+extension CustomRecurrenceViewController {
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        coordinator.animateAlongsideTransition({ (context) -> Void in
+
+        }) { (context) -> Void in
+            let frequency = self.recurrenceRule.frequency
+            if frequency == .Monthly || frequency == .Yearly {
+                if let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as? MonthOrDaySelectorCell {
+                    cell.style = frequency == .Monthly ? .Day : .Month
+                }
+            }
+        }
     }
 }

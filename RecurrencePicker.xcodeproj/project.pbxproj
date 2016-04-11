@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D31AEEBE1CBB858A000A0783 /* GridSelectorLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31AEEBD1CBB858A000A0783 /* GridSelectorLayout.swift */; };
 		D325CAB21CBAA2C900C5559F /* MonthOrDaySelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D325CAB01CBAA2C900C5559F /* MonthOrDaySelectorCell.swift */; };
 		D325CAB31CBAA2C900C5559F /* MonthOrDaySelectorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D325CAB11CBAA2C900C5559F /* MonthOrDaySelectorCell.xib */; };
 		D32DCCA81CB6114E000D8189 /* RRuleSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32DCCA71CB6114E000D8189 /* RRuleSwift.framework */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D31AEEBD1CBB858A000A0783 /* GridSelectorLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSelectorLayout.swift; sourceTree = "<group>"; };
 		D325CAB01CBAA2C900C5559F /* MonthOrDaySelectorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthOrDaySelectorCell.swift; sourceTree = "<group>"; };
 		D325CAB11CBAA2C900C5559F /* MonthOrDaySelectorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonthOrDaySelectorCell.xib; sourceTree = "<group>"; };
 		D32DCCA71CB6114E000D8189 /* RRuleSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RRuleSwift.framework; path = Carthage/Build/iOS/RRuleSwift.framework; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				D3677C611CBA1E65009FB74E /* PickerViewCell.swift */,
 				D3677C681CBA4F3F009FB74E /* SelectorItemCell.xib */,
 				D3677C671CBA4F3F009FB74E /* SelectorItemCell.swift */,
+				D31AEEBD1CBB858A000A0783 /* GridSelectorLayout.swift */,
 				D325CAB11CBAA2C900C5559F /* MonthOrDaySelectorCell.xib */,
 				D325CAB01CBAA2C900C5559F /* MonthOrDaySelectorCell.swift */,
 			);
@@ -241,6 +244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D31AEEBE1CBB858A000A0783 /* GridSelectorLayout.swift in Sources */,
 				D32DCCB41CB62E5B000D8189 /* Constants.swift in Sources */,
 				D376ED7F1CB777D600380B5B /* String+Extension.swift in Sources */,
 				D376ED7D1CB771D700380B5B /* EKWeekday+Sequence.swift in Sources */,
