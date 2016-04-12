@@ -46,7 +46,7 @@ internal class CustomRecurrenceViewController: UITableViewController {
         commonInit()
     }
 
-    public override func didMoveToParentViewController(parent: UIViewController?) {
+    override func didMoveToParentViewController(parent: UIViewController?) {
         if parent == nil {
             // navigation is popped
             delegate?.customRecurrenceViewController(self, didPickRecurrence: recurrenceRule)

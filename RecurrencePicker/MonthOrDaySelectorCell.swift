@@ -72,8 +72,8 @@ extension MonthOrDaySelectorCell {
             // draw vertical lines
             for index in 1...6 {
                 let xPosition = CGFloat(index) * itemSize.width - Constant.gridLineWidth / 2
-                let height = index < 4 ? (itemSize.height * CGFloat(5)) : (itemSize.height * CGFloat(4))
-                let lineFrame = CGRect(x: xPosition, y: Constant.selectorVerticalPadding, width: Constant.gridLineWidth, height: height)
+                let height = index < 4 ? (itemSize.height * CGFloat(5) + Constant.gridLineWidth) : (itemSize.height * CGFloat(4) + Constant.gridLineWidth)
+                let lineFrame = CGRect(x: xPosition, y: Constant.selectorVerticalPadding - Constant.gridLineWidth / 2, width: Constant.gridLineWidth, height: height)
                 let line = CAShapeLayer()
                 line.name = Constant.gridLineName
                 line.frame = lineFrame
@@ -95,7 +95,7 @@ extension MonthOrDaySelectorCell {
             // draw vertical lines
             for index in 1...3 {
                 let xPosition = CGFloat(index) * itemSize.width - Constant.gridLineWidth / 2
-                let lineFrame = CGRect(x: xPosition, y: Constant.selectorVerticalPadding, width: Constant.gridLineWidth, height: (itemSize.height * CGFloat(3)))
+                let lineFrame = CGRect(x: xPosition, y: Constant.selectorVerticalPadding - Constant.gridLineWidth / 2, width: Constant.gridLineWidth, height: (itemSize.height * CGFloat(3) + Constant.gridLineWidth))
                 let line = CAShapeLayer()
                 line.name = Constant.gridLineName
                 line.frame = lineFrame
