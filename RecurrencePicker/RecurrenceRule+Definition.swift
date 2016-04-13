@@ -18,17 +18,15 @@ public extension RecurrenceRule {
         guard frequency == .Weekly && interval == 1 else {
             return false
         }
-        guard let byweekday = byweekday else {
-            return false
-        }
-        return byweekday == [.Monday, .Tuesday, .Wednesday, .Thursday, .Friday]
+        let byweekday = self.byweekday.sort(<)
+        return byweekday == [.Monday, .Tuesday, .Wednesday, .Thursday, .Friday].sort(<)
     }
 
     public func isWeeklyRecurrence(occurrenceDate occurrenceDate: NSDate) -> Bool {
         guard frequency == .Weekly && interval == 1 else {
             return false
         }
-        guard let byweekday = byweekday where byweekday.count == 1 else {
+        guard byweekday.count == 1 else {
             return false
         }
         let weekday = byweekday.first!
@@ -40,7 +38,7 @@ public extension RecurrenceRule {
         guard frequency == .Weekly && interval == 2 else {
             return false
         }
-        guard let byweekday = byweekday where byweekday.count == 1 else {
+        guard byweekday.count == 1 else {
             return false
         }
         let weekday = byweekday.first!
@@ -52,7 +50,7 @@ public extension RecurrenceRule {
         guard frequency == .Monthly && interval == 1 else {
             return false
         }
-        guard let bymonthday = bymonthday where bymonthday.count == 1 else {
+        guard bymonthday.count == 1 else {
             return false
         }
         let monthday = bymonthday.first!
@@ -64,7 +62,7 @@ public extension RecurrenceRule {
         guard frequency == .Yearly && interval == 1 else {
             return false
         }
-        guard let bymonth = bymonth where bymonth.count == 1 else {
+        guard bymonth.count == 1 else {
             return false
         }
         let month = bymonth.first!

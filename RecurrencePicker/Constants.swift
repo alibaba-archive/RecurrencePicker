@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EventKit
 import RRuleSwift
 
 internal struct CellID {
@@ -34,6 +35,9 @@ internal struct Constant {
 internal extension Constant {
     static var frequencies: [RecurrenceFrequency] {
         return [.Daily, .Weekly, .Monthly, .Yearly]
+    }
+    static var weekdays: [EKWeekday] {
+        return [EKWeekday.Monday, EKWeekday.Tuesday, EKWeekday.Wednesday, EKWeekday.Thursday, EKWeekday.Friday, EKWeekday.Saturday, EKWeekday.Sunday]
     }
     static func weekdaySymbols(language language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
         let dateFormatter = NSDateFormatter()

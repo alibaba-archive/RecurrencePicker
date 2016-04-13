@@ -36,7 +36,8 @@ public extension RecurrenceRule {
             return String(format: internationalControl.localizedString(key: "RecurrenceString.presetRepeat"), unitString)
 
         case .Weekly:
-            guard let byweekday = byweekday?.sort(<) where byweekday.count > 0 else {
+            let byweekday = self.byweekday.sort(<)
+            guard byweekday.count > 0 else {
                 return nil
             }
 
@@ -76,7 +77,8 @@ public extension RecurrenceRule {
             }
 
         case .Monthly:
-            guard let bymonthday = bymonthday where bymonthday.count > 0 else {
+            let bymonthday = self.bymonthday.sort(<)
+            guard bymonthday.count > 0 else {
                 return nil
             }
 
@@ -89,7 +91,7 @@ public extension RecurrenceRule {
                 } else if language == .Korean {
                     monthdaysString = String(format: internationalControl.localizedString(key: "RecurrenceString.element.day"), String.sequenceNumberString(bymonthday.first!))
                 } else {
-                    monthdaysString = internationalControl.localizedString(key: "RecurrenceString.element.on.monthly") + String(format: internationalControl.localizedString(key: "RecurrenceString.element.day"), String.sequenceNumberString(bymonthday.first!))
+                    monthdaysString = internationalControl.localizedString(key: "RecurrenceString.element.on.monthly") + String(format: internationalControl.localizedString(key: "RecurrenceString.element.day"), bymonthday.first!)
                 }
 
                 for index in 1..<bymonthday.count {
@@ -103,7 +105,7 @@ public extension RecurrenceRule {
                     if language == .English {
                         monthdaysString += prefixStr + " " + String.sequenceNumberString(bymonthday[index])
                     } else {
-                        monthdaysString += prefixStr + " " + String(format: internationalControl.localizedString(key: "RecurrenceString.element.day"), String.sequenceNumberString(bymonthday[index]))
+                        monthdaysString += prefixStr + " " + String(format: internationalControl.localizedString(key: "RecurrenceString.element.day"), bymonthday[index])
                     }
                 }
 
@@ -117,7 +119,8 @@ public extension RecurrenceRule {
             }
 
         case .Yearly:
-            guard let bymonth = bymonth where bymonth.count > 0 else {
+            let bymonth = self.bymonth.sort(<)
+            guard bymonth.count > 0 else {
                 return nil
             }
 

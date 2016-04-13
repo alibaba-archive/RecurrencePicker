@@ -62,6 +62,10 @@ extension RecurrencePicker {
         return Constant.defaultRowHeight
     }
 
+    public override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return section == 1 ? recurrenceRuleText() : nil
+    }
+
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier(CellID.basicRecurrenceCell)
         if cell == nil {
@@ -98,7 +102,7 @@ extension RecurrencePicker {
 
         if indexPath.section == 0 {
             updateRecurrenceRule(withSelectedIndexPath: indexPath)
-            updateFooterTitle()
+            updateRecurrenceRuleText()
             navigationController?.popViewControllerAnimated(true)
         } else {
             let customRecurrenceViewController = CustomRecurrenceViewController(style: .Grouped)
@@ -106,7 +110,21 @@ extension RecurrencePicker {
             customRecurrenceViewController.tintColor = tintColor
             customRecurrenceViewController.delegate = self
 
-            customRecurrenceViewController.recurrenceRule = recurrenceRule ?? RecurrenceRule.dailyRecurrence()
+            var rule = recurrenceRule ?? RecurrenceRule.dailyRecurrence()
+            let occurrenceDateComponents = calendar.components([.Weekday, .Day, .Month], fromDate: occurrenceDate)
+            if rule.byweekday.count == 0 {
+                let weekday = EKWeekday(rawValue: occurrenceDateComponents.weekday)!
+                rule.byweekday = [weekday]
+            }
+            if rule.bymonthday.count == 0 {
+                let monthday = occurrenceDateComponents.day
+                rule.bymonthday = [monthday]
+            }
+            if rule.bymonth.count == 0 {
+                let month = occurrenceDateComponents.month
+                rule.bymonth = [month]
+            }
+            customRecurrenceViewController.recurrenceRule = rule
 
             navigationController?.pushViewController(customRecurrenceViewController, animated: true)
         }
@@ -179,20 +197,15 @@ extension RecurrencePicker {
         }
     }
 
-    private func updateFooterTitle() {
-        let footerTitle: String? = {
-            guard let recurrenceRule = recurrenceRule else {
-                return nil
-            }
-            guard selectedIndexPath.section == 1 else {
-                return nil
-            }
-            return recurrenceRule.toText(occurrenceDate: occurrenceDate)
-        }()
+    private func recurrenceRuleText() -> String? {
+        return selectedIndexPath.section == 1 ? recurrenceRule?.toText(occurrenceDate: occurrenceDate) : nil
+    }
+
+    private func updateRecurrenceRuleText() {
         let footerView = tableView.footerViewForSection(1)
 
         tableView.beginUpdates()
-        footerView?.textLabel?.text = footerTitle
+        footerView?.textLabel?.text = recurrenceRuleText()
         tableView.endUpdates()
         footerView?.setNeedsLayout()
     }
@@ -200,6 +213,7 @@ extension RecurrencePicker {
 
 extension RecurrencePicker: CustomRecurrenceViewControllerDelegate {
     func customRecurrenceViewController(controller: CustomRecurrenceViewController, didPickRecurrence recurrenceRule: RecurrenceRule) {
-
+        self.recurrenceRule = recurrenceRule
+        updateRecurrenceRuleText()
     }
 }

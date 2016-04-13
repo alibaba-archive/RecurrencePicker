@@ -13,9 +13,19 @@ internal enum MonthOrDaySelectorStyle {
     case Month
 }
 
+internal protocol MonthOrDaySelectorCellDelegate {
+    func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, didSelectMonthday monthday: Int)
+    func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, didDeselectMonthday monthday: Int)
+    func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, shouldDeselectMonthday monthday: Int) -> Bool
+    func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, didSelectMonth month: Int)
+    func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, didDeselectMonth month: Int)
+    func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, shouldDeselectMonth month: Int) -> Bool
+}
+
 internal class MonthOrDaySelectorCell: UITableViewCell {
     @IBOutlet weak var selectorView: UICollectionView!
 
+    internal var delegate: MonthOrDaySelectorCellDelegate?
     internal var style: MonthOrDaySelectorStyle = .Day {
         didSet {
             setNeedsDisplay()
@@ -132,8 +142,10 @@ extension MonthOrDaySelectorCell: UICollectionViewDataSource, UICollectionViewDe
         switch style {
         case .Day:
             cell.textLabel.text = String(indexPath.row + 1)
+            cell.setItemSelected(bymonthday.contains(indexPath.row + 1))
         case .Month:
             cell.textLabel.text = Constant.shortMonthSymbols()[indexPath.row]
+            cell.setItemSelected(bymonth.contains(indexPath.row + 1))
         }
 
         return cell
@@ -143,6 +155,40 @@ extension MonthOrDaySelectorCell: UICollectionViewDataSource, UICollectionViewDe
         guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? SelectorItemCell else {
             return
         }
-        cell.setItemSelected(!cell.isItemSelected)
+
+        switch style {
+        case .Day:
+            let monthday = indexPath.row + 1
+            if cell.isItemSelected {
+                let shouldDeselectDay = delegate?.monthOrDaySelectorCell(self, shouldDeselectMonthday: monthday) ?? true
+                if shouldDeselectDay {
+                    cell.setItemSelected(false)
+                    if let index = bymonthday.indexOf(monthday) {
+                        bymonthday.removeAtIndex(index)
+                    }
+                    delegate?.monthOrDaySelectorCell(self, didDeselectMonthday: monthday)
+                }
+            } else {
+                cell.setItemSelected(true)
+                bymonthday.append(monthday)
+                delegate?.monthOrDaySelectorCell(self, didSelectMonthday: monthday)
+            }
+        case .Month:
+            let month = indexPath.row + 1
+            if cell.isItemSelected {
+                let shouldDeselectMonth = delegate?.monthOrDaySelectorCell(self, shouldDeselectMonth: month) ?? true
+                if shouldDeselectMonth {
+                    cell.setItemSelected(false)
+                    if let index = bymonth.indexOf(month) {
+                        bymonth.removeAtIndex(index)
+                    }
+                    delegate?.monthOrDaySelectorCell(self, didDeselectMonth: month)
+                }
+            } else {
+                cell.setItemSelected(true)
+                bymonth.append(month)
+                delegate?.monthOrDaySelectorCell(self, didSelectMonth: month)
+            }
+        }
     }
 }

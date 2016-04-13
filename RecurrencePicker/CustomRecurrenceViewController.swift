@@ -19,11 +19,7 @@ internal class CustomRecurrenceViewController: UITableViewController {
     internal var delegate: CustomRecurrenceViewControllerDelegate?
     internal var occurrenceDate: NSDate!
     internal var tintColor: UIColor!
-    internal var recurrenceRule = RecurrenceRule(frequency: .Daily) {
-        didSet {
-            
-        }
-    }
+    internal var recurrenceRule: RecurrenceRule!
 
     private var isShowingPickerView = false
     private var pickerViewStyle: PickerViewCellStyle = .Frequency
@@ -64,10 +60,10 @@ extension CustomRecurrenceViewController {
     }
 
     private func isSelectorViewCell(indexPath: NSIndexPath) -> Bool {
-        guard indexPath == NSIndexPath(forRow: 0, inSection: 1) else {
+        guard recurrenceRule.frequency == .Monthly || recurrenceRule.frequency == .Yearly else {
             return false
         }
-        return recurrenceRule.frequency == .Monthly || recurrenceRule.frequency == .Yearly
+        return indexPath == NSIndexPath(forRow: 0, inSection: 1)
     }
 
     private func unfoldPickerView() {
@@ -189,8 +185,13 @@ extension CustomRecurrenceViewController {
             return cell
         } else if isSelectorViewCell(indexPath) {
             let cell = tableView.dequeueReusableCellWithIdentifier(CellID.monthOrDaySelectorCell, forIndexPath: indexPath) as! MonthOrDaySelectorCell
-            cell.style = recurrenceRule.frequency == .Monthly ? .Day : .Month
+            cell.delegate = self
+
             cell.tintColor = tintColor
+            cell.style = recurrenceRule.frequency == .Monthly ? .Day : .Month
+            cell.bymonthday = recurrenceRule.bymonthday
+            cell.bymonth = recurrenceRule.bymonth
+
             return cell
         } else if indexPath.section == 0 {
             var cell = tableView.dequeueReusableCellWithIdentifier(CellID.customRecurrenceViewCell)
@@ -215,8 +216,14 @@ extension CustomRecurrenceViewController {
             if cell == nil {
                 cell = UITableViewCell(style: .Default, reuseIdentifier: CellID.commonCell)
             }
+
             cell?.textLabel?.text = Constant.weekdaySymbols()[indexPath.row]
-            cell?.accessoryType = .Checkmark
+            if recurrenceRule.byweekday.contains(Constant.weekdays[indexPath.row]) {
+                cell?.accessoryType = .Checkmark
+            } else {
+                cell?.accessoryType = .None
+            }
+
             return cell!
         }
     }
@@ -230,6 +237,8 @@ extension CustomRecurrenceViewController {
         }
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 if isShowingFrequencyPicker {
@@ -267,7 +276,27 @@ extension CustomRecurrenceViewController {
                 updateDetailTextColor()
             }
         } else if indexPath.section == 1 {
+            if isShowingPickerView {
+                tableView.beginUpdates()
+                isShowingPickerView = false
+                foldPickerView()
+                tableView.endUpdates()
+            }
 
+            let weekday = Constant.weekdays[indexPath.row]
+            if recurrenceRule.byweekday.contains(weekday) {
+                if recurrenceRule.byweekday == [weekday] {
+                    return
+                }
+                let index = recurrenceRule.byweekday.indexOf(weekday)!
+                recurrenceRule.byweekday.removeAtIndex(index)
+                cell?.accessoryType = .None
+                updateRecurrenceRuleText()
+            } else {
+                recurrenceRule.byweekday.append(weekday)
+                cell?.accessoryType = .Checkmark
+                updateRecurrenceRuleText()
+            }
         }
     }
 }
@@ -288,6 +317,7 @@ extension CustomRecurrenceViewController {
 extension CustomRecurrenceViewController: PickerViewCellDelegate {
     func pickerViewCell(cell: PickerViewCell, didSelectFrequency frequency: RecurrenceFrequency) {
         recurrenceRule.frequency = frequency
+
         updateFrequencyCellText()
         updateIntervalCellText()
         updateSelectorSection(frequency)
@@ -296,7 +326,55 @@ extension CustomRecurrenceViewController: PickerViewCellDelegate {
 
     func pickerViewCell(cell: PickerViewCell, didSelectInterval interval: Int) {
         recurrenceRule.interval = interval
+
         updateIntervalCellText()
+        updateRecurrenceRuleText()
+    }
+}
+
+extension CustomRecurrenceViewController: MonthOrDaySelectorCellDelegate {
+    func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, didSelectMonthday monthday: Int) {
+        if isShowingPickerView {
+            tableView.beginUpdates()
+            isShowingPickerView = false
+            foldPickerView()
+            tableView.endUpdates()
+        }
+        recurrenceRule.bymonthday.append(monthday)
+        updateRecurrenceRuleText()
+    }
+
+    func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, didDeselectMonthday monthday: Int) {
+        if let index = recurrenceRule.bymonthday.indexOf(monthday) {
+            recurrenceRule.bymonthday.removeAtIndex(index)
+            updateRecurrenceRuleText()
+        }
+    }
+
+    func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, shouldDeselectMonthday monthday: Int) -> Bool {
+        return recurrenceRule.bymonthday.count > 1
+    }
+
+    func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, didSelectMonth month: Int) {
+        if isShowingPickerView {
+            tableView.beginUpdates()
+            isShowingPickerView = false
+            foldPickerView()
+            tableView.endUpdates()
+        }
+        recurrenceRule.bymonth.append(month)
+        updateRecurrenceRuleText()
+    }
+
+    func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, didDeselectMonth month: Int) {
+        if let index = recurrenceRule.bymonth.indexOf(month) {
+            recurrenceRule.bymonth.removeAtIndex(index)
+            updateRecurrenceRuleText()
+        }
+    }
+
+    func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, shouldDeselectMonth month: Int) -> Bool {
+        return recurrenceRule.bymonth.count > 1
     }
 }
 
