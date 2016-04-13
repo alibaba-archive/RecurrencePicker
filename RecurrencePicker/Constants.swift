@@ -61,36 +61,36 @@ internal extension Constant {
 
     static func basicRecurrenceStrings(language language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
         let internationalControl = InternationalControl(language: language)
-        return [internationalControl.localizedString(key: "TBRPHelper.presetRepeat.never"),
-                internationalControl.localizedString(key: "TBRPHelper.presetRepeat.everyDay"),
-                internationalControl.localizedString(key: "TBRPHelper.presetRepeat.everyWeek"),
-                internationalControl.localizedString(key: "TBRPHelper.presetRepeat.everyTwoWeeks"),
-                internationalControl.localizedString(key: "TBRPHelper.presetRepeat.everyMonth"),
-                internationalControl.localizedString(key: "TBRPHelper.presetRepeat.everyYear"),
-                internationalControl.localizedString(key: "TBRPHelper.presetRepeat.everyWeekday"),]
+        return [internationalControl.localizedString(key: "basicRecurrence.never"),
+                internationalControl.localizedString(key: "basicRecurrence.everyDay"),
+                internationalControl.localizedString(key: "basicRecurrence.everyWeek"),
+                internationalControl.localizedString(key: "basicRecurrence.everyTwoWeeks"),
+                internationalControl.localizedString(key: "basicRecurrence.everyMonth"),
+                internationalControl.localizedString(key: "basicRecurrence.everyYear"),
+                internationalControl.localizedString(key: "basicRecurrence.everyWeekday"),]
     }
 
     static func frequencyStrings(language language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
         let internationalControl = InternationalControl(language: language)
-        return [internationalControl.localizedString(key: "TBRPHelper.frequencies.daily"),
-                internationalControl.localizedString(key: "TBRPHelper.frequencies.weekly"),
-                internationalControl.localizedString(key: "TBRPHelper.frequencies.monthly"),
-                internationalControl.localizedString(key: "TBRPHelper.frequencies.yearly"),]
+        return [internationalControl.localizedString(key: "frequency.daily"),
+                internationalControl.localizedString(key: "frequency.weekly"),
+                internationalControl.localizedString(key: "frequency.monthly"),
+                internationalControl.localizedString(key: "frequency.yearly"),]
     }
 
     static func unitStrings(language language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
         let internationalControl = InternationalControl(language: language)
-        return [internationalControl.localizedString(key: "TBRPHelper.units.day"),
-                internationalControl.localizedString(key: "TBRPHelper.units.week"),
-                internationalControl.localizedString(key: "TBRPHelper.units.month"),
-                internationalControl.localizedString(key: "TBRPHelper.units.year"),]
+        return [internationalControl.localizedString(key: "unit.day"),
+                internationalControl.localizedString(key: "unit.week"),
+                internationalControl.localizedString(key: "unit.month"),
+                internationalControl.localizedString(key: "unit.year"),]
     }
 
     static func pluralUnitStrings(language language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
         let internationalControl = InternationalControl(language: language)
-        return [internationalControl.localizedString(key: "TBRPHelper.pluralUnits.days"),
-                internationalControl.localizedString(key: "TBRPHelper.pluralUnits.weeks"),
-                internationalControl.localizedString(key: "TBRPHelper.pluralUnits.months"),
-                internationalControl.localizedString(key: "TBRPHelper.pluralUnits.years"),]
+        return [internationalControl.localizedString(key: "pluralUnit.day"),
+                internationalControl.localizedString(key: "pluralUnit.week"),
+                internationalControl.localizedString(key: "pluralUnit.month"),
+                internationalControl.localizedString(key: "pluralUnit.year"),]
     }
 }

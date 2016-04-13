@@ -201,11 +201,11 @@ extension CustomRecurrenceViewController {
             cell?.accessoryType = .None
 
             if indexPath.row == 0 {
-                cell?.textLabel?.text = LocalizedString(key: "TBRPCustomRepeatController.textLabel.frequency")
+                cell?.textLabel?.text = LocalizedString(key: "CustomRecurrenceViewController.textLabel.frequency")
                 cell?.detailTextLabel?.text = Constant.frequencyStrings()[recurrenceRule.frequency.number]
                 cell?.detailTextLabel?.textColor = isShowingFrequencyPicker ? tintColor : Constant.detailTextColor
             } else {
-                cell?.textLabel?.text = LocalizedString(key: "TBRPCustomRepeatController.textLabel.interval")
+                cell?.textLabel?.text = LocalizedString(key: "CustomRecurrenceViewController.textLabel.interval")
                 cell?.detailTextLabel?.text = unitStringForIntervalCell()
                 cell?.detailTextLabel?.textColor = isShowingIntervalPicker ? tintColor : Constant.detailTextColor
             }
@@ -281,6 +281,7 @@ extension CustomRecurrenceViewController {
                 isShowingPickerView = false
                 foldPickerView()
                 tableView.endUpdates()
+                updateDetailTextColor()
             }
 
             let weekday = Constant.weekdays[indexPath.row]
@@ -304,7 +305,7 @@ extension CustomRecurrenceViewController {
 extension CustomRecurrenceViewController {
     // MARK: - Helper
     private func commonInit() {
-        navigationItem.title = LocalizedString(key: "TBRPPresetRepeatController.textLabel.custom")
+        navigationItem.title = LocalizedString(key: "RecurrencePicker.textLabel.custom")
         navigationController?.navigationBar.tintColor = tintColor
         tableView.tintColor = tintColor
 
@@ -339,12 +340,20 @@ extension CustomRecurrenceViewController: MonthOrDaySelectorCellDelegate {
             isShowingPickerView = false
             foldPickerView()
             tableView.endUpdates()
+            updateDetailTextColor()
         }
         recurrenceRule.bymonthday.append(monthday)
         updateRecurrenceRuleText()
     }
 
     func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, didDeselectMonthday monthday: Int) {
+        if isShowingPickerView {
+            tableView.beginUpdates()
+            isShowingPickerView = false
+            foldPickerView()
+            tableView.endUpdates()
+            updateDetailTextColor()
+        }
         if let index = recurrenceRule.bymonthday.indexOf(monthday) {
             recurrenceRule.bymonthday.removeAtIndex(index)
             updateRecurrenceRuleText()
@@ -361,12 +370,20 @@ extension CustomRecurrenceViewController: MonthOrDaySelectorCellDelegate {
             isShowingPickerView = false
             foldPickerView()
             tableView.endUpdates()
+            updateDetailTextColor()
         }
         recurrenceRule.bymonth.append(month)
         updateRecurrenceRuleText()
     }
 
     func monthOrDaySelectorCell(cell: MonthOrDaySelectorCell, didDeselectMonth month: Int) {
+        if isShowingPickerView {
+            tableView.beginUpdates()
+            isShowingPickerView = false
+            foldPickerView()
+            tableView.endUpdates()
+            updateDetailTextColor()
+        }
         if let index = recurrenceRule.bymonth.indexOf(month) {
             recurrenceRule.bymonth.removeAtIndex(index)
             updateRecurrenceRuleText()

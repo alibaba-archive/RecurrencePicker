@@ -6,58 +6,41 @@
   Copyright © 2016年 Teambition. All rights reserved.
 */
 
-"TBRPHelper.frequencies.daily" = "每天";
-"TBRPHelper.frequencies.weekly" = "每週";
-"TBRPHelper.frequencies.monthly" = "每月";
-"TBRPHelper.frequencies.yearly" = "每年";
+"frequency.daily" = "每天";
+"frequency.weekly" = "每週";
+"frequency.monthly" = "每月";
+"frequency.yearly" = "每年";
 
-"TBRPHelper.units.day" = "天";
-"TBRPHelper.units.week" = "週";
-"TBRPHelper.units.month" = "月";
-"TBRPHelper.units.year" = "年";
+"unit.day" = "天";
+"unit.week" = "週";
+"unit.month" = "月";
+"unit.year" = "年";
 
-"TBRPHelper.pluralUnits.days" = "天";
-"TBRPHelper.pluralUnits.weeks" = "週";
-"TBRPHelper.pluralUnits.months" = "個月";
-"TBRPHelper.pluralUnits.years" = "年";
+"pluralUnit.day" = "天";
+"pluralUnit.week" = "週";
+"pluralUnit.month" = "個月";
+"pluralUnit.year" = "年";
 
-"TBRPHelper.presetRepeat.never" = "永不";
-"TBRPHelper.presetRepeat.everyDay" = "每天";
-"TBRPHelper.presetRepeat.everyWeek" = "每週";
-"TBRPHelper.presetRepeat.everyTwoWeeks" = "每兩週";
-"TBRPHelper.presetRepeat.everyMonth" = "每月";
-"TBRPHelper.presetRepeat.everyYear" = "每年";
-"TBRPHelper.presetRepeat.everyWeekday" = "每个平日";
+"basicRecurrence.never" = "永不";
+"basicRecurrence.everyDay" = "每天";
+"basicRecurrence.everyWeek" = "每週";
+"basicRecurrence.everyTwoWeeks" = "每兩週";
+"basicRecurrence.everyMonth" = "每月";
+"basicRecurrence.everyYear" = "每年";
+"basicRecurrence.everyWeekday" = "每个平日";
 
-"TBRPHelper.numbersInWeekPicker.first" = "第一個";
-"TBRPHelper.numbersInWeekPicker.second" = "第二個";
-"TBRPHelper.numbersInWeekPicker.third" = "第三個";
-"TBRPHelper.numbersInWeekPicker.fourth" = "第四個";
-"TBRPHelper.numbersInWeekPicker.fifth" = "第五個";
-"TBRPHelper.numbersInWeekPicker.last" = "最後一個";
+"RecurrencePicker.navigation.title" = "重複";
+"RecurrencePicker.textLabel.custom" = "自定";
 
-"TBRPHelper.daysInWeekPicker.day" = "日子";
-"TBRPHelper.daysInWeekPicker.weekday" = "平日";
-"TBRPHelper.daysInWeekPicker.weekendDay" = "週末";
+"CustomRecurrenceViewController.textLabel.frequency" = "頻率";
+"CustomRecurrenceViewController.textLabel.interval" = "每";
 
-"TBRPPresetRepeatController.navigation.title" = "重複";
-"TBRPPresetRepeatController.textLabel.custom" = "自定";
-
-"TBRPCustomRepeatController.textLabel.frequency" = "頻率";
-"TBRPCustomRepeatController.textLabel.interval" = "每";
-"TBRPCustomRepeatController.textLabel.date" = "日期";
-"TBRPCustomRepeatController.weekCell.onThe" = "星期";
-"TBRPCustomRepeatController.weekCell.daysOfWeek" = "星期";
-
-"RecurrenceString.presetRepeat" = "行程每%@重複一次。";
-"RecurrenceString.element.on.weekly" = "的";
-"RecurrenceString.element.on.monthly" = "的";
-"RecurrenceString.element.on.yearlyMonths" = "的";
-"RecurrenceString.element.on.yearlyMonths.byWeekNo" = "的";
-"RecurrenceString.element.on.yearlyWeekString" = "的";
-"RecurrenceString.element.and" = "和";
-"RecurrenceString.element.comma" = "、";
-"RecurrenceString.element.day" = "%d日";
-"RecurrenceString.specifiedDaysOrMonths" = "行程每%@%@重複一次。";
-"RecurrenceString.yearlyByWeekNoString" = "行程每%@%@%@重複一次。";
-"RecurrenceString.weekdayRecurrence" = "行程每週一到週五重複一次。";
+"RecurrenceRuleText.basicRecurrence" = "行程每%@重複一次。";
+"RecurrenceRuleText.element.on.weekly" = "的";
+"RecurrenceRuleText.element.on.monthly" = "的";
+"RecurrenceRuleText.element.on.yearly" = "的";
+"RecurrenceRuleText.element.and" = "和";
+"RecurrenceRuleText.element.comma" = "、";
+"RecurrenceRuleText.element.day" = "%d日";
+"RecurrenceRuleText.everyWeekday" = "行程每週一到週五重複一次。";
+"RecurrenceRuleText.byWeekdaysOrMonthdaysOrMonths" = "行程每%@%@重複一次。";

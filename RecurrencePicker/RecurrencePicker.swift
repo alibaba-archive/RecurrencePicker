@@ -39,6 +39,30 @@ public class RecurrencePicker: UITableViewController {
     public override func didMoveToParentViewController(parent: UIViewController?) {
         if parent == nil {
             // navigation is popped
+            if let rule = recurrenceRule {
+                switch rule.frequency {
+                case .Daily:
+                    recurrenceRule?.byweekday.removeAll()
+                    recurrenceRule?.bymonthday.removeAll()
+                    recurrenceRule?.bymonth.removeAll()
+                case .Weekly:
+                    recurrenceRule?.byweekday = rule.byweekday.sort(<)
+                    recurrenceRule?.bymonthday.removeAll()
+                    recurrenceRule?.bymonth.removeAll()
+                case .Monthly:
+                    recurrenceRule?.byweekday.removeAll()
+                    recurrenceRule?.bymonthday = rule.bymonthday.sort(<)
+                    recurrenceRule?.bymonth.removeAll()
+                case .Yearly:
+                    recurrenceRule?.byweekday.removeAll()
+                    recurrenceRule?.bymonthday.removeAll()
+                    recurrenceRule?.bymonth = rule.bymonth.sort(<)
+                default:
+                    break
+                }
+            }
+            recurrenceRule?.startDate = NSDate()
+
             delegate?.recurrencePicker(self, didPickRecurrence: recurrenceRule)
         }
     }
@@ -77,7 +101,7 @@ extension RecurrencePicker {
             cell?.textLabel?.text = Constant.basicRecurrenceStrings()[indexPath.row]
         } else {
             cell?.accessoryType = .DisclosureIndicator
-            cell?.textLabel?.text = LocalizedString(key: "TBRPPresetRepeatController.textLabel.custom")
+            cell?.textLabel?.text = LocalizedString(key: "RecurrencePicker.textLabel.custom")
         }
 
         let checkmark =  UIImage(named: "checkmark", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
@@ -136,7 +160,7 @@ extension RecurrencePicker {
 extension RecurrencePicker {
     // MARK: - Helper
     private func commonInit() {
-        navigationItem.title = LocalizedString(key: "TBRPPresetRepeatController.navigation.title")
+        navigationItem.title = LocalizedString(key: "RecurrencePicker.navigation.title")
         navigationController?.navigationBar.tintColor = tintColor
         tableView.tintColor = tintColor
         updateSelectedIndexPath(withRule: recurrenceRule)

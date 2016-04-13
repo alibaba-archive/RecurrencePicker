@@ -6,58 +6,41 @@
   Copyright © 2016年 Teambition. All rights reserved.
 */
 
-"TBRPHelper.frequencies.daily" = "Daily";
-"TBRPHelper.frequencies.weekly" = "Weekly";
-"TBRPHelper.frequencies.monthly" = "Monthly";
-"TBRPHelper.frequencies.yearly" = "Yearly";
+"frequency.daily" = "Daily";
+"frequency.weekly" = "Weekly";
+"frequency.monthly" = "Monthly";
+"frequency.yearly" = "Yearly";
 
-"TBRPHelper.units.day" = "Day";
-"TBRPHelper.units.week" = "Week";
-"TBRPHelper.units.month" = "Month";
-"TBRPHelper.units.year" = "Year";
+"unit.day" = "Day";
+"unit.week" = "Week";
+"unit.month" = "Month";
+"unit.year" = "Year";
 
-"TBRPHelper.pluralUnits.days" = "days";
-"TBRPHelper.pluralUnits.weeks" = "weeks";
-"TBRPHelper.pluralUnits.months" = "months";
-"TBRPHelper.pluralUnits.years" = "years";
+"pluralUnit.day" = "days";
+"pluralUnit.week" = "weeks";
+"pluralUnit.month" = "months";
+"pluralUnit.year" = "years";
 
-"TBRPHelper.presetRepeat.never" = "Never";
-"TBRPHelper.presetRepeat.everyDay" = "Every Day";
-"TBRPHelper.presetRepeat.everyWeek" = "Every Week";
-"TBRPHelper.presetRepeat.everyTwoWeeks" = "Every 2 Weeks";
-"TBRPHelper.presetRepeat.everyMonth" = "Every Month";
-"TBRPHelper.presetRepeat.everyYear" = "Every Year";
-"TBRPHelper.presetRepeat.everyWeekday" = "Every Weekday";
+"basicRecurrence.never" = "Never";
+"basicRecurrence.everyDay" = "Every Day";
+"basicRecurrence.everyWeek" = "Every Week";
+"basicRecurrence.everyTwoWeeks" = "Every 2 Weeks";
+"basicRecurrence.everyMonth" = "Every Month";
+"basicRecurrence.everyYear" = "Every Year";
+"basicRecurrence.everyWeekday" = "Every Weekday";
 
-"TBRPHelper.numbersInWeekPicker.first" = "first";
-"TBRPHelper.numbersInWeekPicker.second" = "second";
-"TBRPHelper.numbersInWeekPicker.third" = "third";
-"TBRPHelper.numbersInWeekPicker.fourth" = "fourth";
-"TBRPHelper.numbersInWeekPicker.fifth" = "fifth";
-"TBRPHelper.numbersInWeekPicker.last" = "last";
+"RecurrencePicker.navigation.title" = "Repeat";
+"RecurrencePicker.textLabel.custom" = "Custom";
 
-"TBRPHelper.daysInWeekPicker.day" = "day";
-"TBRPHelper.daysInWeekPicker.weekday" = "weekday";
-"TBRPHelper.daysInWeekPicker.weekendDay" = "weekend day";
+"CustomRecurrenceViewController.textLabel.frequency" = "Frequency";
+"CustomRecurrenceViewController.textLabel.interval" = "Every";
 
-"TBRPPresetRepeatController.navigation.title" = "Repeat";
-"TBRPPresetRepeatController.textLabel.custom" = "Custom";
-
-"TBRPCustomRepeatController.textLabel.frequency" = "Frequency";
-"TBRPCustomRepeatController.textLabel.interval" = "Every";
-"TBRPCustomRepeatController.textLabel.date" = "Each";
-"TBRPCustomRepeatController.weekCell.onThe" = "On the...";
-"TBRPCustomRepeatController.weekCell.daysOfWeek" = "Days of Week";
-
-"RecurrenceString.presetRepeat" = "Event will occur every %@.";
-"RecurrenceString.element.on.weekly" = "on";
-"RecurrenceString.element.on.monthly" = "on the";
-"RecurrenceString.element.on.yearlyMonths" = "in";
-"RecurrenceString.element.on.yearlyMonths.byWeekNo" = "of";
-"RecurrenceString.element.on.yearlyWeekString" = "on the";
-"RecurrenceString.element.and" = "and";
-"RecurrenceString.element.comma" = ",";
-"RecurrenceString.element.day" = "";
-"RecurrenceString.specifiedDaysOrMonths" = "Event will occur every %@ %@.";
-"RecurrenceString.yearlyByWeekNoString" = "Event will occur every %@ %@ %@.";
-"RecurrenceString.weekdayRecurrence" = "Event will occur every weekday.";
+"RecurrenceRuleText.basicRecurrence" = "Event will occur every %@.";
+"RecurrenceRuleText.element.on.weekly" = "on";
+"RecurrenceRuleText.element.on.monthly" = "on the";
+"RecurrenceRuleText.element.on.yearly" = "in";
+"RecurrenceRuleText.element.and" = "and";
+"RecurrenceRuleText.element.comma" = ",";
+"RecurrenceRuleText.element.day" = "";
+"RecurrenceRuleText.everyWeekday" = "Event will occur every weekday.";
+"RecurrenceRuleText.byWeekdaysOrMonthdaysOrMonths" = "Event will occur every %@ %@.";

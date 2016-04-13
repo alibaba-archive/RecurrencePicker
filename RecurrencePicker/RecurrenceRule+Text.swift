@@ -16,24 +16,26 @@ public extension RecurrenceRule {
         let pluralUnit = Constant.pluralUnitStrings(language: language)[frequency.number]
 
         let unitString: String = {
+            var unitString: String
             if language == .Korean || language == .Japanese {
-                return "\(interval)" + pluralUnit
+                unitString = "\(interval)" + pluralUnit
             } else {
                 if interval == 1 {
-                    return unit
+                    unitString = unit
                 } else {
                     if language == .English {
-                        return "\(interval)" + " " + pluralUnit
+                        unitString = "\(interval)" + " " + pluralUnit
                     } else {
-                        return "\(interval)" + pluralUnit
+                        unitString = "\(interval)" + pluralUnit
                     }
                 }
             }
+            return unitString.lowercaseString
         }()
 
         switch frequency {
         case .Daily:
-            return String(format: internationalControl.localizedString(key: "RecurrenceString.presetRepeat"), unitString)
+            return String(format: internationalControl.localizedString(key: "RecurrenceRuleText.basicRecurrence"), unitString)
 
         case .Weekly:
             let byweekday = self.byweekday.sort(<)
@@ -42,25 +44,25 @@ public extension RecurrenceRule {
             }
 
             if isWeekdayRecurrence() {
-                return internationalControl.localizedString(key: "RecurrenceString.weekdayRecurrence")
+                return internationalControl.localizedString(key: "RecurrenceRuleText.everyWeekday")
             } else if interval == 1 && byweekday == [.Monday, .Tuesday, .Wednesday, .Thursday, .Friday, .Saturday, .Sunday].sort(<) {
                 return RecurrenceRule(frequency: .Daily).toText(language: language, occurrenceDate: occurrenceDate)
             } else if byweekday.count == 1 && calendar.components([.Weekday], fromDate: occurrenceDate).weekday == byweekday.first!.rawValue {
-                return String(format: internationalControl.localizedString(key: "RecurrenceString.presetRepeat"), unitString)
+                return String(format: internationalControl.localizedString(key: "RecurrenceRuleText.basicRecurrence"), unitString)
             } else {
                 var weekdaysString: String
                 if language == .Korean {
                     weekdaysString = Constant.weekdaySymbols(language: language)[byweekday.first!.number]
                 } else {
-                    weekdaysString = internationalControl.localizedString(key: "RecurrenceString.element.on.weekly") + " " + Constant.weekdaySymbols(language: language)[byweekday.first!.number]
+                    weekdaysString = internationalControl.localizedString(key: "RecurrenceRuleText.element.on.weekly") + " " + Constant.weekdaySymbols(language: language)[byweekday.first!.number]
                 }
 
                 for index in 1..<byweekday.count {
                     var prefixString: String
                     if index == byweekday.count - 1 {
-                        prefixString = " " + internationalControl.localizedString(key: "RecurrenceString.element.and")
+                        prefixString = " " + internationalControl.localizedString(key: "RecurrenceRuleText.element.and")
                     } else {
-                        prefixString = internationalControl.localizedString(key: "RecurrenceString.element.comma")
+                        prefixString = internationalControl.localizedString(key: "RecurrenceRuleText.element.comma")
                     }
                     weekdaysString += prefixString + " " + Constant.weekdaySymbols(language: language)[byweekday[index].number]
                 }
@@ -70,10 +72,10 @@ public extension RecurrenceRule {
                 }
 
                 if language == .Korean {
-                    weekdaysString += internationalControl.localizedString(key: "RecurrenceString.element.on.weekly")
+                    weekdaysString += internationalControl.localizedString(key: "RecurrenceRuleText.element.on.weekly")
                 }
 
-                return String(format: internationalControl.localizedString(key: "RecurrenceString.specifiedDaysOrMonths"), unitString, weekdaysString)
+                return String(format: internationalControl.localizedString(key: "RecurrenceRuleText.byWeekdaysOrMonthdaysOrMonths"), unitString, weekdaysString)
             }
 
         case .Monthly:
@@ -83,39 +85,39 @@ public extension RecurrenceRule {
             }
 
             if bymonthday.count == 1 && calendar.components([.Day], fromDate: occurrenceDate).day == bymonthday.first! {
-                return String(format: internationalControl.localizedString(key: "RecurrenceString.presetRepeat"), unitString)
+                return String(format: internationalControl.localizedString(key: "RecurrenceRuleText.basicRecurrence"), unitString)
             } else {
                 var monthdaysString: String
                 if language == .English {
-                    monthdaysString = internationalControl.localizedString(key: "RecurrenceString.element.on.monthly") + " " + String.sequenceNumberString(bymonthday.first!)
+                    monthdaysString = internationalControl.localizedString(key: "RecurrenceRuleText.element.on.monthly") + " " + String.sequenceNumberString(bymonthday.first!)
                 } else if language == .Korean {
-                    monthdaysString = String(format: internationalControl.localizedString(key: "RecurrenceString.element.day"), String.sequenceNumberString(bymonthday.first!))
+                    monthdaysString = String(format: internationalControl.localizedString(key: "RecurrenceRuleText.element.day"), bymonthday.first!)
                 } else {
-                    monthdaysString = internationalControl.localizedString(key: "RecurrenceString.element.on.monthly") + String(format: internationalControl.localizedString(key: "RecurrenceString.element.day"), bymonthday.first!)
+                    monthdaysString = internationalControl.localizedString(key: "RecurrenceRuleText.element.on.monthly") + String(format: internationalControl.localizedString(key: "RecurrenceRuleText.element.day"), bymonthday.first!)
                 }
 
                 for index in 1..<bymonthday.count {
                     var prefixStr: String
                     if index == bymonthday.count - 1 {
-                        prefixStr = " " + internationalControl.localizedString(key: "RecurrenceString.element.and")
+                        prefixStr = " " + internationalControl.localizedString(key: "RecurrenceRuleText.element.and")
                     } else {
-                        prefixStr = internationalControl.localizedString(key: "RecurrenceString.element.comma")
+                        prefixStr = internationalControl.localizedString(key: "RecurrenceRuleText.element.comma")
                     }
 
                     if language == .English {
                         monthdaysString += prefixStr + " " + String.sequenceNumberString(bymonthday[index])
                     } else {
-                        monthdaysString += prefixStr + " " + String(format: internationalControl.localizedString(key: "RecurrenceString.element.day"), bymonthday[index])
+                        monthdaysString += prefixStr + " " + String(format: internationalControl.localizedString(key: "RecurrenceRuleText.element.day"), bymonthday[index])
                     }
                 }
 
                 if language != .English && language != .Korean {
                     monthdaysString.removeSubstring(" ")
                 } else if language == .Korean {
-                    monthdaysString += internationalControl.localizedString(key: "RecurrenceString.element.on.monthly")
+                    monthdaysString += internationalControl.localizedString(key: "RecurrenceRuleText.element.on.monthly")
                 }
 
-                return String(format: internationalControl.localizedString(key: "RecurrenceString.specifiedDaysOrMonths"), unitString, monthdaysString)
+                return String(format: internationalControl.localizedString(key: "RecurrenceRuleText.byWeekdaysOrMonthdaysOrMonths"), unitString, monthdaysString)
             }
 
         case .Yearly:
@@ -124,30 +126,30 @@ public extension RecurrenceRule {
                 return nil
             }
 
-            if bymonth.count == 1 && calendar.components([.Month], fromDate: occurrenceDate).day == bymonth.first! {
-                return String(format: internationalControl.localizedString(key: "RecurrenceString.presetRepeat"), unitString)
+            if bymonth.count == 1 && calendar.components([.Month], fromDate: occurrenceDate).month == bymonth.first! {
+                return String(format: internationalControl.localizedString(key: "RecurrenceRuleText.basicRecurrence"), unitString)
             } else {
                 var monthsString: String
                 if language == .English {
-                    monthsString = internationalControl.localizedString(key: "RecurrenceString.element.on.yearlyMonths") + " " + Constant.monthSymbols(language: language)[bymonth.first! - 1]
+                    monthsString = internationalControl.localizedString(key: "RecurrenceRuleText.element.on.yearly") + " " + Constant.monthSymbols(language: language)[bymonth.first! - 1]
                 } else if language == .Korean {
                     monthsString = Constant.monthSymbols(language: language)[bymonth.first! - 1]
                 } else {
-                    monthsString = internationalControl.localizedString(key: "RecurrenceString.element.on.yearlyMonths") + Constant.monthSymbols(language: language)[bymonth.first! - 1]
+                    monthsString = internationalControl.localizedString(key: "RecurrenceRuleText.element.on.yearly") + Constant.shortMonthSymbols(language: language)[bymonth.first! - 1]
                 }
 
                 for index in 1..<bymonth.count {
                     var prefixStr: String
                     if index == bymonth.count - 1 {
-                        prefixStr = " " + internationalControl.localizedString(key: "RecurrenceString.element.and")
+                        prefixStr = " " + internationalControl.localizedString(key: "RecurrenceRuleText.element.and")
                     } else {
-                        prefixStr = internationalControl.localizedString(key: "RecurrenceString.element.comma")
+                        prefixStr = internationalControl.localizedString(key: "RecurrenceRuleText.element.comma")
                     }
 
                     if language == .English {
                         monthsString += prefixStr + " " + Constant.monthSymbols(language: language)[bymonth[index] - 1]
                     } else {
-                        monthsString += prefixStr + " " + Constant.monthSymbols(language: language)[bymonth[index] - 1]
+                        monthsString += prefixStr + " " + Constant.shortMonthSymbols(language: language)[bymonth[index] - 1]
                     }
                 }
 
@@ -156,10 +158,10 @@ public extension RecurrenceRule {
                 }
 
                 if language == .Korean {
-                    monthsString += internationalControl.localizedString(key: "RecurrenceString.element.on.yearlyMonths")
+                    monthsString += internationalControl.localizedString(key: "RecurrenceRuleText.element.on.yearly")
                 }
 
-                return String(format: internationalControl.localizedString(key: "RecurrenceString.specifiedDaysOrMonths"), unitString, monthsString)
+                return String(format: internationalControl.localizedString(key: "RecurrenceRuleText.byWeekdaysOrMonthdaysOrMonths"), unitString, monthsString)
             }
 
         default:

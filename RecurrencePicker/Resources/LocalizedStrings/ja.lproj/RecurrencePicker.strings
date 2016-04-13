@@ -6,58 +6,41 @@
   Copyright © 2016年 Teambition. All rights reserved.
 */
 
-"TBRPHelper.frequencies.daily" = "毎日";
-"TBRPHelper.frequencies.weekly" = "毎週";
-"TBRPHelper.frequencies.monthly" = "毎月";
-"TBRPHelper.frequencies.yearly" = "毎年";
+"frequency.daily" = "毎日";
+"frequency.weekly" = "毎週";
+"frequency.monthly" = "毎月";
+"frequency.yearly" = "毎年";
 
-"TBRPHelper.units.day" = "日";
-"TBRPHelper.units.week" = "週間";
-"TBRPHelper.units.month" = "カ月";
-"TBRPHelper.units.year" = "年";
+"unit.day" = "日";
+"unit.week" = "週間";
+"unit.month" = "カ月";
+"unit.year" = "年";
 
-"TBRPHelper.pluralUnits.days" = "日";
-"TBRPHelper.pluralUnits.weeks" = "週間";
-"TBRPHelper.pluralUnits.months" = "カ月";
-"TBRPHelper.pluralUnits.years" = "年";
+"pluralUnit.day" = "日";
+"pluralUnit.week" = "週間";
+"pluralUnit.month" = "カ月";
+"pluralUnit.year" = "年";
 
-"TBRPHelper.presetRepeat.never" = "しない";
-"TBRPHelper.presetRepeat.everyDay" = "毎日";
-"TBRPHelper.presetRepeat.everyWeek" = "毎週";
-"TBRPHelper.presetRepeat.everyTwoWeeks" = "２週間ごと";
-"TBRPHelper.presetRepeat.everyMonth" = "毎月";
-"TBRPHelper.presetRepeat.everyYear" = "毎年";
-"TBRPHelper.presetRepeat.everyWeekday" = "平日に毎日";
+"basicRecurrence.never" = "しない";
+"basicRecurrence.everyDay" = "毎日";
+"basicRecurrence.everyWeek" = "毎週";
+"basicRecurrence.everyTwoWeeks" = "２週間ごと";
+"basicRecurrence.everyMonth" = "毎月";
+"basicRecurrence.everyYear" = "毎年";
+"basicRecurrence.everyWeekday" = "平日に毎日";
 
-"TBRPHelper.numbersInWeekPicker.first" = "第1";
-"TBRPHelper.numbersInWeekPicker.second" = "第2";
-"TBRPHelper.numbersInWeekPicker.third" = "第3";
-"TBRPHelper.numbersInWeekPicker.fourth" = "第4";
-"TBRPHelper.numbersInWeekPicker.fifth" = "第5";
-"TBRPHelper.numbersInWeekPicker.last" = "最後の";
+"RecurrencePicker.navigation.title" = "繰り返し";
+"RecurrencePicker.textLabel.custom" = "カスタム";
 
-"TBRPHelper.daysInWeekPicker.day" = "日";
-"TBRPHelper.daysInWeekPicker.weekday" = "平日";
-"TBRPHelper.daysInWeekPicker.weekendDay" = "週末";
+"CustomRecurrenceViewController.textLabel.frequency" = "繰り返しの単位";
+"CustomRecurrenceViewController.textLabel.interval" = "繰り返しの頻度";
 
-"TBRPPresetRepeatController.navigation.title" = "繰り返し";
-"TBRPPresetRepeatController.textLabel.custom" = "カスタム";
-
-"TBRPCustomRepeatController.textLabel.frequency" = "繰り返しの単位";
-"TBRPCustomRepeatController.textLabel.interval" = "繰り返しの頻度";
-"TBRPCustomRepeatController.textLabel.date" = "毎";
-"TBRPCustomRepeatController.weekCell.onThe" = "指定日";
-"TBRPCustomRepeatController.weekCell.daysOfWeek" = "曜日";
-
-"RecurrenceString.presetRepeat" = "%@ごとにあるイベントです。";
-"RecurrenceString.element.on.weekly" = "に、";
-"RecurrenceString.element.on.monthly" = "に、";
-"RecurrenceString.element.on.yearlyMonths" = "に、";
-"RecurrenceString.element.on.yearlyMonths.byWeekNo" = "に、";
-"RecurrenceString.element.on.yearlyWeekString" = "の";
-"RecurrenceString.element.and" = "と";
-"RecurrenceString.element.comma" = "、";
-"RecurrenceString.element.day" = "%d日";
-"RecurrenceString.specifiedDaysOrMonths" = "%@ごと%@にあるイベントです。";
-"RecurrenceString.yearlyByWeekNoString" = "%@ごと%@%@にあるイベントです。";
-"RecurrenceString.weekdayRecurrence" = "平日に毎日あるイベントです。";
+"RecurrenceRuleText.basicRecurrence" = "%@ごとにあるイベントです。";
+"RecurrenceRuleText.element.on.weekly" = "に、";
+"RecurrenceRuleText.element.on.monthly" = "に、";
+"RecurrenceRuleText.element.on.yearly" = "に、";
+"RecurrenceRuleText.element.and" = "と";
+"RecurrenceRuleText.element.comma" = "、";
+"RecurrenceRuleText.element.day" = "%d日";
+"RecurrenceRuleText.everyWeekday" = "平日に毎日あるイベントです。";
+"RecurrenceRuleText.byWeekdaysOrMonthdaysOrMonths" = "%@ごと%@にあるイベントです。";
