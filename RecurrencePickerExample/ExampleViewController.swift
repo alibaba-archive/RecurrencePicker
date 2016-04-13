@@ -58,6 +58,7 @@ class ExampleViewController: UIViewController {
 
     @IBAction func datePickerPicked(sender: UIDatePicker) {
         print("Occurrence Date: \(sender.date)")
+        updateResultTextView()
     }
 
     func switchLanguageButtonTapped(sender: UIBarButtonItem) {
