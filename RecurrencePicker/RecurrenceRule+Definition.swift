@@ -27,6 +27,9 @@ public extension RecurrenceRule {
             return false
         }
         guard byweekday.count == 1 else {
+            if byweekday.count == 0 {
+                return true
+            }
             return false
         }
         let weekday = byweekday.first!
@@ -39,6 +42,9 @@ public extension RecurrenceRule {
             return false
         }
         guard byweekday.count == 1 else {
+            if byweekday.count == 0 {
+                return true
+            }
             return false
         }
         let weekday = byweekday.first!
@@ -51,6 +57,9 @@ public extension RecurrenceRule {
             return false
         }
         guard bymonthday.count == 1 else {
+            if bymonthday.count == 0 {
+                return true
+            }
             return false
         }
         let monthday = bymonthday.first!
@@ -63,6 +72,9 @@ public extension RecurrenceRule {
             return false
         }
         guard bymonth.count == 1 else {
+            if bymonth.count == 0 {
+                return true
+            }
             return false
         }
         let month = bymonth.first!
