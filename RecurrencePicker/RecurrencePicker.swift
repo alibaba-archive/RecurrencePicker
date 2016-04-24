@@ -16,7 +16,7 @@ public class RecurrencePicker: UITableViewController {
             InternationalControl.sharedControl.language = language
         }
     }
-    public var delegate: RecurrencePickerDelegate?
+    public weak var delegate: RecurrencePickerDelegate?
     public var tintColor = UIColor.blueColor()
     public var calendar = NSCalendar.currentCalendar()
     public var occurrenceDate = NSDate()
