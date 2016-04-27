@@ -104,7 +104,7 @@ extension RecurrencePicker {
             cell?.textLabel?.text = LocalizedString(key: "RecurrencePicker.textLabel.custom")
         }
 
-        let checkmark =  UIImage(named: "checkmark", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
+        let checkmark = UIImage(named: "checkmark", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
         cell?.imageView?.image = checkmark?.imageWithRenderingMode(.AlwaysTemplate)
 
         if indexPath == selectedIndexPath {
