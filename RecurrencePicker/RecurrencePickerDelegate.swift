@@ -9,7 +9,7 @@
 import Foundation
 import RRuleSwift
 
-public protocol RecurrencePickerDelegate {
+public protocol RecurrencePickerDelegate: class {
     func recurrencePicker(picker: RecurrencePicker, didPickRecurrence recurrenceRule: RecurrenceRule?)
 }
 
