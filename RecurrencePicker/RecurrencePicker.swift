@@ -20,6 +20,8 @@ public class RecurrencePicker: UITableViewController {
     public var tintColor = UIColor.blueColor()
     public var calendar = NSCalendar.currentCalendar()
     public var occurrenceDate = NSDate()
+    public var backgroundColor: UIColor?
+    public var separatorColor: UIColor?
 
     private var recurrenceRule: RecurrenceRule?
     private var selectedIndexPath = NSIndexPath(forRow: 0, inSection: 0)
@@ -132,6 +134,8 @@ extension RecurrencePicker {
             let customRecurrenceViewController = CustomRecurrenceViewController(style: .Grouped)
             customRecurrenceViewController.occurrenceDate = occurrenceDate
             customRecurrenceViewController.tintColor = tintColor
+            customRecurrenceViewController.backgroundColor = backgroundColor
+            customRecurrenceViewController.separatorColor = separatorColor
             customRecurrenceViewController.delegate = self
 
             var rule = recurrenceRule ?? RecurrenceRule.dailyRecurrence()
@@ -163,6 +167,12 @@ extension RecurrencePicker {
         navigationItem.title = LocalizedString(key: "RecurrencePicker.navigation.title")
         navigationController?.navigationBar.tintColor = tintColor
         tableView.tintColor = tintColor
+        if let backgroundColor = backgroundColor {
+            tableView.backgroundColor = backgroundColor
+        }
+        if let separatorColor = separatorColor {
+            tableView.separatorColor = separatorColor
+        }
         updateSelectedIndexPath(withRule: recurrenceRule)
     }
 

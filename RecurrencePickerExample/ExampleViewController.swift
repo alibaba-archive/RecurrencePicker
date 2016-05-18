@@ -52,6 +52,8 @@ class ExampleViewController: UIViewController {
         recurrencePicker.tintColor = kTBBlueColor
         recurrencePicker.language = language
         recurrencePicker.occurrenceDate = occurrenceDate
+        recurrencePicker.backgroundColor = UIColor(white: 242 / 255, alpha: 1)
+        recurrencePicker.separatorColor = UIColor(white: 221 / 255, alpha: 1)
         recurrencePicker.delegate = self
         navigationController?.pushViewController(recurrencePicker, animated: true)
     }

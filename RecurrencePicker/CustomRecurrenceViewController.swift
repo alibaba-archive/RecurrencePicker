@@ -20,6 +20,8 @@ internal class CustomRecurrenceViewController: UITableViewController {
     internal var occurrenceDate: NSDate!
     internal var tintColor: UIColor!
     internal var recurrenceRule: RecurrenceRule!
+    internal var backgroundColor: UIColor?
+    internal var separatorColor: UIColor?
 
     private var isShowingPickerView = false
     private var pickerViewStyle: PickerViewCellStyle = .Frequency
@@ -308,6 +310,12 @@ extension CustomRecurrenceViewController {
         navigationItem.title = LocalizedString(key: "RecurrencePicker.textLabel.custom")
         navigationController?.navigationBar.tintColor = tintColor
         tableView.tintColor = tintColor
+        if let backgroundColor = backgroundColor {
+            tableView.backgroundColor = backgroundColor
+        }
+        if let separatorColor = separatorColor {
+            tableView.separatorColor = separatorColor
+        }
 
         let bundle = NSBundle(identifier: "Teambition.RecurrencePicker") ?? NSBundle.mainBundle()
         tableView.registerNib(UINib(nibName: "PickerViewCell", bundle: bundle), forCellReuseIdentifier: CellID.pickerViewCell)
