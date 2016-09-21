@@ -9,16 +9,16 @@
 import UIKit
 
 internal class GridSelectorLayout: UICollectionViewLayout {
-    private var style: MonthOrDaySelectorStyle = .Day
-    private var layoutAttributes = [UICollectionViewLayoutAttributes]()
+    fileprivate var style: MonthOrDaySelectorStyle = .day
+    fileprivate var layoutAttributes = [UICollectionViewLayoutAttributes]()
 
     convenience init(style: MonthOrDaySelectorStyle) {
         self.init()
         self.style = style
     }
 
-    override func prepareLayout() {
-        super.prepareLayout()
+    override func prepare() {
+        super.prepare()
         if !self.layoutAttributes.isEmpty {
             return
         }
@@ -26,13 +26,13 @@ internal class GridSelectorLayout: UICollectionViewLayout {
         let itemSize = GridSelectorLayout.itemSizeWithStyle(style, selectorViewWidth: collectionView!.frame.width)
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
         switch style {
-        case .Day:
+        case .day:
             for section in 0...4 {
                 for row in 0...6 {
                     let itemNumber = section * 7 + row
                     if itemNumber < 31 {
-                        let indexPath = NSIndexPath(forItem: itemNumber, inSection: 0)
-                        let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+                        let indexPath = IndexPath(item: itemNumber, section: 0)
+                        let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
                         let x = itemSize.width * CGFloat(row)
                         let y = itemSize.height * CGFloat(section)
                         attributes.frame = CGRect(origin: CGPoint(x: x, y: y), size: itemSize)
@@ -40,13 +40,13 @@ internal class GridSelectorLayout: UICollectionViewLayout {
                     }
                 }
             }
-        case .Month:
+        case .month:
             for section in 0...2 {
                 for row in 0...3 {
                     let itemNumber = section * 4 + row
                     if itemNumber < 12 {
-                        let indexPath = NSIndexPath(forItem: itemNumber, inSection: 0)
-                        let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+                        let indexPath = IndexPath(item: itemNumber, section: 0)
+                        let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
                         let x = itemSize.width * CGFloat(row)
                         let y = itemSize.height * CGFloat(section)
                         attributes.frame = CGRect(origin: CGPoint(x: x, y: y), size: itemSize)
@@ -58,29 +58,29 @@ internal class GridSelectorLayout: UICollectionViewLayout {
         self.layoutAttributes = layoutAttributes
     }
 
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
         for attributes in self.layoutAttributes {
-            if CGRectIntersectsRect(attributes.frame, rect) {
+            if attributes.frame.intersects(rect) {
                 layoutAttributes.append(attributes)
             }
         }
         return layoutAttributes
     }
 
-    override func collectionViewContentSize() -> CGSize {
+    override var collectionViewContentSize : CGSize {
         return collectionView!.frame.size
     }
 }
 
 extension GridSelectorLayout {
-    internal static func itemSizeWithStyle(style: MonthOrDaySelectorStyle, selectorViewWidth: CGFloat) -> CGSize {
+    internal static func itemSizeWithStyle(_ style: MonthOrDaySelectorStyle, selectorViewWidth: CGFloat) -> CGSize {
         switch style {
-        case .Day:
+        case .day:
             let width: CGFloat = selectorViewWidth / 7
             let height: CGFloat = width * 0.9
             return CGSize(width: width, height: height)
-        case .Month:
+        case .month:
             let width: CGFloat = selectorViewWidth / 4
             let height: CGFloat = 44
             return CGSize(width: width, height: height)

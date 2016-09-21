@@ -10,11 +10,11 @@ import Foundation
 import RRuleSwift
 
 public protocol RecurrencePickerDelegate: class {
-    func recurrencePicker(picker: RecurrencePicker, didPickRecurrence recurrenceRule: RecurrenceRule?)
+    func recurrencePicker(_ picker: RecurrencePicker, didPickRecurrence recurrenceRule: RecurrenceRule?)
 }
 
 public extension RecurrencePickerDelegate {
-    func recurrencePicker(picker: RecurrencePicker, didPickRecurrence recurrenceRule: RecurrenceRule?) {
+    func recurrencePicker(_ picker: RecurrencePicker, didPickRecurrence recurrenceRule: RecurrenceRule?) {
 
     }
 }
