@@ -9,37 +9,37 @@
 import Foundation
 
 public enum RecurrencePickerLanguage {
-    case English
-    case SimplifiedChinese
-    case TraditionalChinese
-    case Korean
-    case Japanese
+    case english
+    case simplifiedChinese
+    case traditionalChinese
+    case korean
+    case japanese
 
     internal var identifier: String {
         switch self {
-        case .English: return "en"
-        case .SimplifiedChinese: return "zh-Hans"
-        case .TraditionalChinese: return "zh-Hant"
-        case .Korean: return "ko"
-        case .Japanese: return "ja"
+        case .english: return "en"
+        case .simplifiedChinese: return "zh-Hans"
+        case .traditionalChinese: return "zh-Hant"
+        case .korean: return "ko"
+        case .japanese: return "ja"
         }
     }
 }
 
-internal func LocalizedString(key key: String, comment: String? = nil) -> String {
-    return InternationalControl.sharedControl.localizedString(key: key, comment: comment)
+internal func LocalizedString(_ key: String, comment: String? = nil) -> String {
+    return InternationalControl.sharedControl.localizedString(key, comment: comment)
 }
 
 internal struct InternationalControl {
     internal static var sharedControl = InternationalControl()
-    internal var language: RecurrencePickerLanguage = .English
+    internal var language: RecurrencePickerLanguage = .english
 
-    internal func localizedString(key key: String, comment: String? = nil) -> String {
-        let path = NSBundle(identifier: "Teambition.RecurrencePicker")?.pathForResource(language.identifier, ofType: "lproj") ?? NSBundle.mainBundle().pathForResource(language.identifier, ofType: "lproj")
+    internal func localizedString(_ key: String, comment: String? = nil) -> String {
+        let path = Bundle(identifier: "Teambition.RecurrencePicker")?.path(forResource: language.identifier, ofType: "lproj") ?? Bundle.main.path(forResource: language.identifier, ofType: "lproj")
         guard let localizationPath = path else {
             return key
         }
-        let bundle = NSBundle(path: localizationPath)
-        return bundle?.localizedStringForKey(key, value: nil, table: "RecurrencePicker") ?? key
+        let bundle = Bundle(path: localizationPath)
+        return bundle?.localizedString(forKey: key, value: nil, table: "RecurrencePicker") ?? key
     }
 }

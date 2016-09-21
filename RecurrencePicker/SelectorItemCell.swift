@@ -11,16 +11,16 @@ import UIKit
 internal class SelectorItemCell: UICollectionViewCell {
     @IBOutlet weak var textLabel: UILabel!
 
-    internal private(set) var isItemSelected = false
+    internal fileprivate(set) var isItemSelected = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
         setItemSelected(false)
     }
 
-    internal func setItemSelected(selected: Bool) {
+    internal func setItemSelected(_ selected: Bool) {
         isItemSelected = selected
-        backgroundColor = selected ? tintColor : UIColor.whiteColor()
-        textLabel.textColor = selected ? UIColor.whiteColor() : UIColor.blackColor()
+        backgroundColor = selected ? tintColor : UIColor.white
+        textLabel.textColor = selected ? UIColor.white : UIColor.black
     }
 }

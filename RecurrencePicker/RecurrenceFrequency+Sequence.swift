@@ -12,13 +12,13 @@ import RRuleSwift
 internal extension RecurrenceFrequency {
     internal var number: Int {
         switch self {
-        case .Daily: return 0
-        case .Weekly: return 1
-        case .Monthly: return 2
-        case .Yearly: return 3
-        case .Hourly: return 4
-        case .Minutely: return 5
-        case .Secondly: return 6
+        case .daily: return 0
+        case .weekly: return 1
+        case .monthly: return 2
+        case .yearly: return 3
+        case .hourly: return 4
+        case .minutely: return 5
+        case .secondly: return 6
         }
     }
 }
