@@ -10,28 +10,28 @@ import UIKit
 import RRuleSwift
 
 internal enum PickerViewCellStyle {
-    case Frequency
-    case Interval
+    case frequency
+    case interval
 }
 
-internal protocol PickerViewCellDelegate {
-    func pickerViewCell(cell: PickerViewCell, didSelectFrequency frequency: RecurrenceFrequency)
-    func pickerViewCell(cell: PickerViewCell, didSelectInterval interval: Int)
+internal protocol PickerViewCellDelegate: class {
+    func pickerViewCell(_ cell: PickerViewCell, didSelectFrequency frequency: RecurrenceFrequency)
+    func pickerViewCell(_ cell: PickerViewCell, didSelectInterval interval: Int)
 }
 
 internal class PickerViewCell: UITableViewCell {
     @IBOutlet weak var pickerView: UIPickerView!
 
-    internal var delegate: PickerViewCellDelegate?
-    internal var style: PickerViewCellStyle = .Frequency {
+    internal weak var delegate: PickerViewCellDelegate?
+    internal var style: PickerViewCellStyle = .frequency {
         didSet {
             pickerView.reloadAllComponents()
         }
     }
-    internal var frequency: RecurrenceFrequency = .Daily {
+    internal var frequency: RecurrenceFrequency = .daily {
         didSet {
-            if style == .Frequency {
-                if pickerView.selectedRowInComponent(0) != frequency.number {
+            if style == .frequency {
+                if pickerView.selectedRow(inComponent: 0) != frequency.number {
                     pickerView.selectRow(frequency.number, inComponent: 0, animated: false)
                 }
             }
@@ -39,8 +39,8 @@ internal class PickerViewCell: UITableViewCell {
     }
     internal var interval = 1 {
         didSet {
-            if style == .Interval {
-                if pickerView.selectedRowInComponent(0) != interval - 1 {
+            if style == .interval {
+                if pickerView.selectedRow(inComponent: 0) != interval - 1 {
                     pickerView.selectRow(interval - 1, inComponent: 0, animated: false)
                 }
             }
@@ -49,21 +49,21 @@ internal class PickerViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = .None
-        accessoryType = .None
+        selectionStyle = .none
+        accessoryType = .none
     }
 }
 
 extension PickerViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return style == .Frequency ? 1 : 2
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return style == .frequency ? 1 : 2
     }
 
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch style {
-        case .Frequency:
+        case .frequency:
             return Constant.frequencies.count
-        case .Interval:
+        case .interval:
             if component == 0 {
                 return Constant.pickerMaxRowCount
             } else {
@@ -72,30 +72,30 @@ extension PickerViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
         }
     }
 
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch style {
-        case .Frequency:
+        case .frequency:
             return Constant.frequencyStrings()[row]
-        case .Interval:
+        case .interval:
             if component == 0 {
                 return String(row + 1)
             } else {
                 let unit = interval == 1 ? Constant.unitStrings()[frequency.number] : Constant.pluralUnitStrings()[frequency.number]
-                return unit.lowercaseString
+                return unit.lowercased()
             }
         }
     }
 
-    func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return Constant.pickerRowHeight
     }
 
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch style {
-        case .Frequency:
+        case .frequency:
             frequency = Constant.frequencies[row]
             delegate?.pickerViewCell(self, didSelectFrequency: frequency)
-        case .Interval:
+        case .interval:
             if component == 0 {
                 interval = row + 1
                 pickerView.reloadComponent(1)

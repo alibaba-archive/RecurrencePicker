@@ -14,8 +14,8 @@ private let kTBBlueColor = UIColor(red: 3.0 / 255.0, green: 169.0 / 255.0, blue:
 
 class ExampleViewController: UIViewController {
     var recurrenceRule: RecurrenceRule?
-    var language: RecurrencePickerLanguage = .English
-    var occurrenceDate: NSDate {
+    var language: RecurrencePickerLanguage = .english
+    var occurrenceDate: Date {
         return datePicker.date
     }
 
@@ -30,24 +30,24 @@ class ExampleViewController: UIViewController {
     }
 
     // MARK: - Helper
-    private func updateLanguageButtonTitle() {
-        guard let index = languages.indexOf(language) else {
+    fileprivate func updateLanguageButtonTitle() {
+        guard let index = languages.index(of: language) else {
             return
         }
         let languageTitle = languageStrings[index]
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: languageTitle, style: .Plain, target: self, action: #selector(ExampleViewController.switchLanguageButtonTapped(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: languageTitle, style: .plain, target: self, action: #selector(switchLanguageButtonTapped(_:)))
     }
 
-    private func updateResultTextView() {
+    fileprivate func updateResultTextView() {
         if let recurrenceRule = recurrenceRule {
-            resultTextView.text = recurrenceRule.toRRuleString() + "\r\r" + (recurrenceRule.toText(language: language, occurrenceDate: occurrenceDate) ?? "")
+            resultTextView.text = recurrenceRule.toRRuleString() + "\r\r" + (recurrenceRule.toText(of: language, occurrenceDate: occurrenceDate) ?? "")
         } else {
             resultTextView.text = nil
         }
     }
 
     // MARK: - Actions
-    @IBAction func pickButtonTapped(sender: UIButton) {
+    @IBAction func pickButtonTapped(_ sender: UIButton) {
         let recurrencePicker = RecurrencePicker(recurrenceRule: recurrenceRule)
         recurrencePicker.tintColor = kTBBlueColor
         recurrencePicker.language = language
@@ -58,22 +58,22 @@ class ExampleViewController: UIViewController {
         navigationController?.pushViewController(recurrencePicker, animated: true)
     }
 
-    @IBAction func datePickerPicked(sender: UIDatePicker) {
+    @IBAction func datePickerPicked(_ sender: UIDatePicker) {
         print("Occurrence Date: \(sender.date)")
         updateResultTextView()
     }
 
-    func switchLanguageButtonTapped(sender: UIBarButtonItem) {
-        let languageViewController = LanguageViewController(style: .Grouped)
+    func switchLanguageButtonTapped(_ sender: UIBarButtonItem) {
+        let languageViewController = LanguageViewController(style: .grouped)
         let navigationController = UINavigationController(rootViewController: languageViewController)
         languageViewController.language = language
         languageViewController.delegate = self
-        presentViewController(navigationController, animated: true, completion: nil)
+        present(navigationController, animated: true, completion: nil)
     }
 }
 
 extension ExampleViewController: LanguageViewControllerDelegate {
-    func languageViewController(controller: LanguageViewController, didSelectLanguage language: RecurrencePickerLanguage) {
+    func languageViewController(_ controller: LanguageViewController, didSelectLanguage language: RecurrencePickerLanguage) {
         self.language = language
         updateLanguageButtonTitle()
         updateResultTextView()
@@ -81,7 +81,7 @@ extension ExampleViewController: LanguageViewControllerDelegate {
 }
 
 extension ExampleViewController: RecurrencePickerDelegate {
-    func recurrencePicker(picker: RecurrencePicker, didPickRecurrence recurrenceRule: RecurrenceRule?) {
+    func recurrencePicker(_ picker: RecurrencePicker, didPickRecurrence recurrenceRule: RecurrenceRule?) {
         self.recurrenceRule = recurrenceRule
         updateResultTextView()
     }

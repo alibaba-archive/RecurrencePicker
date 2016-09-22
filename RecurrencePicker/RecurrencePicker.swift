@@ -10,60 +10,60 @@ import UIKit
 import EventKit
 import RRuleSwift
 
-public class RecurrencePicker: UITableViewController {
-    public var language: RecurrencePickerLanguage = .English {
+open class RecurrencePicker: UITableViewController {
+    open var language: RecurrencePickerLanguage = .english {
         didSet {
             InternationalControl.sharedControl.language = language
         }
     }
-    public weak var delegate: RecurrencePickerDelegate?
-    public var tintColor = UIColor.blueColor()
-    public var calendar = NSCalendar.currentCalendar()
-    public var occurrenceDate = NSDate()
-    public var backgroundColor: UIColor?
-    public var separatorColor: UIColor?
+    open weak var delegate: RecurrencePickerDelegate?
+    open var tintColor = UIColor.blue
+    open var calendar = Calendar.current
+    open var occurrenceDate = Date()
+    open var backgroundColor: UIColor?
+    open var separatorColor: UIColor?
 
-    private var recurrenceRule: RecurrenceRule?
-    private var selectedIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+    fileprivate var recurrenceRule: RecurrenceRule?
+    fileprivate var selectedIndexPath = IndexPath(row: 0, section: 0)
 
     // MARK: - Initialization
     public convenience init(recurrenceRule: RecurrenceRule?) {
-        self.init(style: .Grouped)
+        self.init(style: .grouped)
         self.recurrenceRule = recurrenceRule
     }
 
     // MARK: - Life cycle
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
     }
 
-    public override func didMoveToParentViewController(parent: UIViewController?) {
+    open override func didMove(toParentViewController parent: UIViewController?) {
         if parent == nil {
             // navigation is popped
             if let rule = recurrenceRule {
                 switch rule.frequency {
-                case .Daily:
+                case .daily:
                     recurrenceRule?.byweekday.removeAll()
                     recurrenceRule?.bymonthday.removeAll()
                     recurrenceRule?.bymonth.removeAll()
-                case .Weekly:
-                    recurrenceRule?.byweekday = rule.byweekday.sort(<)
+                case .weekly:
+                    recurrenceRule?.byweekday = rule.byweekday.sorted(by: <)
                     recurrenceRule?.bymonthday.removeAll()
                     recurrenceRule?.bymonth.removeAll()
-                case .Monthly:
+                case .monthly:
                     recurrenceRule?.byweekday.removeAll()
-                    recurrenceRule?.bymonthday = rule.bymonthday.sort(<)
+                    recurrenceRule?.bymonthday = rule.bymonthday.sorted(by: <)
                     recurrenceRule?.bymonth.removeAll()
-                case .Yearly:
+                case .yearly:
                     recurrenceRule?.byweekday.removeAll()
                     recurrenceRule?.bymonthday.removeAll()
-                    recurrenceRule?.bymonth = rule.bymonth.sort(<)
+                    recurrenceRule?.bymonth = rule.bymonth.sorted(by: <)
                 default:
                     break
                 }
             }
-            recurrenceRule?.startDate = NSDate()
+            recurrenceRule?.startDate = Date()
 
             delegate?.recurrencePicker(self, didPickRecurrence: recurrenceRule)
         }
@@ -72,11 +72,11 @@ public class RecurrencePicker: UITableViewController {
 
 extension RecurrencePicker {
     // MARK: - Table view data source and delegate
-    public override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    open override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
-    public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return Constant.basicRecurrenceStrings().count
         } else {
@@ -84,54 +84,54 @@ extension RecurrencePicker {
         }
     }
 
-    public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    open override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return Constant.defaultRowHeight
     }
 
-    public override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    open override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return section == 1 ? recurrenceRuleText() : nil
     }
 
-    public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier(CellID.basicRecurrenceCell)
+    open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: CellID.basicRecurrenceCell)
         if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: CellID.basicRecurrenceCell)
+            cell = UITableViewCell(style: .default, reuseIdentifier: CellID.basicRecurrenceCell)
         }
 
         if indexPath.section == 0 {
-            cell?.accessoryType = .None
+            cell?.accessoryType = .none
             cell?.textLabel?.text = Constant.basicRecurrenceStrings()[indexPath.row]
         } else {
-            cell?.accessoryType = .DisclosureIndicator
-            cell?.textLabel?.text = LocalizedString(key: "RecurrencePicker.textLabel.custom")
+            cell?.accessoryType = .disclosureIndicator
+            cell?.textLabel?.text = LocalizedString("RecurrencePicker.textLabel.custom")
         }
 
-        let checkmark = UIImage(named: "checkmark", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
-        cell?.imageView?.image = checkmark?.imageWithRenderingMode(.AlwaysTemplate)
+        let checkmark = UIImage(named: "checkmark", in: Bundle(for: type(of: self)), compatibleWith: nil)
+        cell?.imageView?.image = checkmark?.withRenderingMode(.alwaysTemplate)
 
         if indexPath == selectedIndexPath {
-            cell?.imageView?.hidden = false
+            cell?.imageView?.isHidden = false
         } else {
-            cell?.imageView?.hidden = true
+            cell?.imageView?.isHidden = true
         }
         return cell!
     }
 
-    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let lastSelectedCell = tableView.cellForRowAtIndexPath(selectedIndexPath)
-        let currentSelectedCell = tableView.cellForRowAtIndexPath(indexPath)
+    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let lastSelectedCell = tableView.cellForRow(at: selectedIndexPath)
+        let currentSelectedCell = tableView.cellForRow(at: indexPath)
 
-        lastSelectedCell?.imageView?.hidden = true
-        currentSelectedCell?.imageView?.hidden = false
+        lastSelectedCell?.imageView?.isHidden = true
+        currentSelectedCell?.imageView?.isHidden = false
 
         selectedIndexPath = indexPath
 
         if indexPath.section == 0 {
             updateRecurrenceRule(withSelectedIndexPath: indexPath)
             updateRecurrenceRuleText()
-            navigationController?.popViewControllerAnimated(true)
+            let _ = navigationController?.popViewController(animated: true)
         } else {
-            let customRecurrenceViewController = CustomRecurrenceViewController(style: .Grouped)
+            let customRecurrenceViewController = CustomRecurrenceViewController(style: .grouped)
             customRecurrenceViewController.occurrenceDate = occurrenceDate
             customRecurrenceViewController.tintColor = tintColor
             customRecurrenceViewController.backgroundColor = backgroundColor
@@ -139,32 +139,32 @@ extension RecurrencePicker {
             customRecurrenceViewController.delegate = self
 
             var rule = recurrenceRule ?? RecurrenceRule.dailyRecurrence()
-            let occurrenceDateComponents = calendar.components([.Weekday, .Day, .Month], fromDate: occurrenceDate)
+            let occurrenceDateComponents = calendar.dateComponents([.weekday, .day, .month], from: occurrenceDate)
             if rule.byweekday.count == 0 {
-                let weekday = EKWeekday(rawValue: occurrenceDateComponents.weekday)!
+                let weekday = EKWeekday(rawValue: occurrenceDateComponents.weekday!)!
                 rule.byweekday = [weekday]
             }
             if rule.bymonthday.count == 0 {
                 let monthday = occurrenceDateComponents.day
-                rule.bymonthday = [monthday]
+                rule.bymonthday = [monthday!]
             }
             if rule.bymonth.count == 0 {
                 let month = occurrenceDateComponents.month
-                rule.bymonth = [month]
+                rule.bymonth = [month!]
             }
             customRecurrenceViewController.recurrenceRule = rule
 
             navigationController?.pushViewController(customRecurrenceViewController, animated: true)
         }
 
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 extension RecurrencePicker {
     // MARK: - Helper
-    private func commonInit() {
-        navigationItem.title = LocalizedString(key: "RecurrencePicker.navigation.title")
+    fileprivate func commonInit() {
+        navigationItem.title = LocalizedString("RecurrencePicker.navigation.title")
         navigationController?.navigationBar.tintColor = tintColor
         tableView.tintColor = tintColor
         if let backgroundColor = backgroundColor {
@@ -176,29 +176,29 @@ extension RecurrencePicker {
         updateSelectedIndexPath(withRule: recurrenceRule)
     }
 
-    private func updateSelectedIndexPath(withRule recurrenceRule: RecurrenceRule?) {
+    fileprivate func updateSelectedIndexPath(withRule recurrenceRule: RecurrenceRule?) {
         guard let recurrenceRule = recurrenceRule else {
-            selectedIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+            selectedIndexPath = IndexPath(row: 0, section: 0)
             return
         }
         if recurrenceRule.isDailyRecurrence() {
-            selectedIndexPath = NSIndexPath(forRow: 1, inSection: 0)
-        } else if recurrenceRule.isWeeklyRecurrence(occurrenceDate: occurrenceDate) {
-            selectedIndexPath = NSIndexPath(forRow: 2, inSection: 0)
-        } else if recurrenceRule.isBiWeeklyRecurrence(occurrenceDate: occurrenceDate) {
-            selectedIndexPath = NSIndexPath(forRow: 3, inSection: 0)
-        } else if recurrenceRule.isMonthlyRecurrence(occurrenceDate: occurrenceDate) {
-            selectedIndexPath = NSIndexPath(forRow: 4, inSection: 0)
-        } else if recurrenceRule.isYearlyRecurrence(occurrenceDate: occurrenceDate) {
-            selectedIndexPath = NSIndexPath(forRow: 5, inSection: 0)
+            selectedIndexPath = IndexPath(row: 1, section: 0)
+        } else if recurrenceRule.isWeeklyRecurrence(occurrence: occurrenceDate) {
+            selectedIndexPath = IndexPath(row: 2, section: 0)
+        } else if recurrenceRule.isBiWeeklyRecurrence(occurrence: occurrenceDate) {
+            selectedIndexPath = IndexPath(row: 3, section: 0)
+        } else if recurrenceRule.isMonthlyRecurrence(occurrence: occurrenceDate) {
+            selectedIndexPath = IndexPath(row: 4, section: 0)
+        } else if recurrenceRule.isYearlyRecurrence(occurrence: occurrenceDate) {
+            selectedIndexPath = IndexPath(row: 5, section: 0)
         } else if recurrenceRule.isWeekdayRecurrence() {
-            selectedIndexPath = NSIndexPath(forRow: 6, inSection: 0)
+            selectedIndexPath = IndexPath(row: 6, section: 0)
         } else {
-            selectedIndexPath = NSIndexPath(forRow: 0, inSection: 1)
+            selectedIndexPath = IndexPath(row: 0, section: 1)
         }
     }
 
-    private func updateRecurrenceRule(withSelectedIndexPath indexPath: NSIndexPath) {
+    fileprivate func updateRecurrenceRule(withSelectedIndexPath indexPath: IndexPath) {
         guard indexPath.section == 0 else {
             return
         }
@@ -209,21 +209,17 @@ extension RecurrencePicker {
         case 1:
             recurrenceRule = RecurrenceRule.dailyRecurrence()
         case 2:
-            let occurrenceDateComponents = calendar.components([.Weekday], fromDate: occurrenceDate)
-            let weekday = EKWeekday(rawValue: occurrenceDateComponents.weekday)!
-            recurrenceRule = RecurrenceRule.weeklyRecurrence(weekday: weekday)
+            let weekday = EKWeekday(rawValue: calendar.component(.weekday, from: occurrenceDate))!
+            recurrenceRule = RecurrenceRule.weeklyRecurrence(withWeekday: weekday)
         case 3:
-            let occurrenceDateComponents = calendar.components([.Weekday], fromDate: occurrenceDate)
-            let weekday = EKWeekday(rawValue: occurrenceDateComponents.weekday)!
-            recurrenceRule = RecurrenceRule.biWeeklyRecurrence(weekday: weekday)
+            let weekday = EKWeekday(rawValue: calendar.component(.weekday, from: occurrenceDate))!
+            recurrenceRule = RecurrenceRule.biWeeklyRecurrence(withWeekday: weekday)
         case 4:
-            let occurrenceDateComponents = calendar.components([.Day], fromDate: occurrenceDate)
-            let monthday = occurrenceDateComponents.day
-            recurrenceRule = RecurrenceRule.monthlyRecurrence(monthday: monthday)
+            let monthday = calendar.component(.day, from: occurrenceDate)
+            recurrenceRule = RecurrenceRule.monthlyRecurrence(withMonthday: monthday)
         case 5:
-            let occurrenceDateComponents = calendar.components([.Month], fromDate: occurrenceDate)
-            let month = occurrenceDateComponents.month
-            recurrenceRule = RecurrenceRule.yearlyRecurrence(month: month)
+            let month = calendar.component(.month, from: occurrenceDate)
+            recurrenceRule = RecurrenceRule.yearlyRecurrence(withMonth: month)
         case 6:
             recurrenceRule = RecurrenceRule.weekdayRecurrence()
         default:
@@ -231,12 +227,12 @@ extension RecurrencePicker {
         }
     }
 
-    private func recurrenceRuleText() -> String? {
+    fileprivate func recurrenceRuleText() -> String? {
         return selectedIndexPath.section == 1 ? recurrenceRule?.toText(occurrenceDate: occurrenceDate) : nil
     }
 
-    private func updateRecurrenceRuleText() {
-        let footerView = tableView.footerViewForSection(1)
+    fileprivate func updateRecurrenceRuleText() {
+        let footerView = tableView.footerView(forSection: 1)
 
         tableView.beginUpdates()
         footerView?.textLabel?.text = recurrenceRuleText()
@@ -246,7 +242,7 @@ extension RecurrencePicker {
 }
 
 extension RecurrencePicker: CustomRecurrenceViewControllerDelegate {
-    func customRecurrenceViewController(controller: CustomRecurrenceViewController, didPickRecurrence recurrenceRule: RecurrenceRule) {
+    func customRecurrenceViewController(_ controller: CustomRecurrenceViewController, didPickRecurrence recurrenceRule: RecurrenceRule) {
         self.recurrenceRule = recurrenceRule
         updateRecurrenceRuleText()
     }

@@ -24,7 +24,7 @@ internal struct Constant {
     static let pickerViewCellHeight: CGFloat = 215
     static let pickerRowHeight: CGFloat = 40
     static let pickerMaxRowCount = 999
-    static let detailTextColor = UIColor.grayColor()
+    static let detailTextColor = UIColor.gray
 
     static let selectorVerticalPadding: CGFloat = 1
     static let gridLineWidth: CGFloat = 0.5
@@ -33,64 +33,66 @@ internal struct Constant {
 }
 
 internal extension Constant {
-    static var frequencies: [RecurrenceFrequency] {
-        return [.Daily, .Weekly, .Monthly, .Yearly]
-    }
-    static var weekdays: [EKWeekday] {
-        return [EKWeekday.Monday, EKWeekday.Tuesday, EKWeekday.Wednesday, EKWeekday.Thursday, EKWeekday.Friday, EKWeekday.Saturday, EKWeekday.Sunday]
-    }
-    static func weekdaySymbols(language language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: language.identifier)
-        var weekdaySymbols = dateFormatter.weekdaySymbols
-        weekdaySymbols.insert(weekdaySymbols.removeAtIndex(0), atIndex: 6)
+    static let frequencies: [RecurrenceFrequency] = {
+        return [.daily, .weekly, .monthly, .yearly]
+    }()
+
+    static let weekdays: [EKWeekday] = {
+        return [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
+    }()
+
+    static func weekdaySymbols(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: language.identifier)
+        var weekdaySymbols = dateFormatter.weekdaySymbols!
+        weekdaySymbols.insert(weekdaySymbols.remove(at: 0), at: 6)
         return weekdaySymbols
     }
 
-    static func shortMonthSymbols(language language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: language.identifier)
+    static func shortMonthSymbols(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: language.identifier)
         return dateFormatter.shortMonthSymbols
     }
 
-    static func monthSymbols(language language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: language.identifier)
+    static func monthSymbols(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: language.identifier)
         return dateFormatter.monthSymbols
     }
 
-    static func basicRecurrenceStrings(language language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+    static func basicRecurrenceStrings(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
         let internationalControl = InternationalControl(language: language)
-        return [internationalControl.localizedString(key: "basicRecurrence.never"),
-                internationalControl.localizedString(key: "basicRecurrence.everyDay"),
-                internationalControl.localizedString(key: "basicRecurrence.everyWeek"),
-                internationalControl.localizedString(key: "basicRecurrence.everyTwoWeeks"),
-                internationalControl.localizedString(key: "basicRecurrence.everyMonth"),
-                internationalControl.localizedString(key: "basicRecurrence.everyYear"),
-                internationalControl.localizedString(key: "basicRecurrence.everyWeekday"),]
+        return [internationalControl.localizedString("basicRecurrence.never"),
+                internationalControl.localizedString("basicRecurrence.everyDay"),
+                internationalControl.localizedString("basicRecurrence.everyWeek"),
+                internationalControl.localizedString("basicRecurrence.everyTwoWeeks"),
+                internationalControl.localizedString("basicRecurrence.everyMonth"),
+                internationalControl.localizedString("basicRecurrence.everyYear"),
+                internationalControl.localizedString("basicRecurrence.everyWeekday"),]
     }
 
-    static func frequencyStrings(language language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+    static func frequencyStrings(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
         let internationalControl = InternationalControl(language: language)
-        return [internationalControl.localizedString(key: "frequency.daily"),
-                internationalControl.localizedString(key: "frequency.weekly"),
-                internationalControl.localizedString(key: "frequency.monthly"),
-                internationalControl.localizedString(key: "frequency.yearly"),]
+        return [internationalControl.localizedString("frequency.daily"),
+                internationalControl.localizedString("frequency.weekly"),
+                internationalControl.localizedString("frequency.monthly"),
+                internationalControl.localizedString("frequency.yearly"),]
     }
 
-    static func unitStrings(language language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+    static func unitStrings(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
         let internationalControl = InternationalControl(language: language)
-        return [internationalControl.localizedString(key: "unit.day"),
-                internationalControl.localizedString(key: "unit.week"),
-                internationalControl.localizedString(key: "unit.month"),
-                internationalControl.localizedString(key: "unit.year"),]
+        return [internationalControl.localizedString("unit.day"),
+                internationalControl.localizedString("unit.week"),
+                internationalControl.localizedString("unit.month"),
+                internationalControl.localizedString("unit.year"),]
     }
 
-    static func pluralUnitStrings(language language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+    static func pluralUnitStrings(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
         let internationalControl = InternationalControl(language: language)
-        return [internationalControl.localizedString(key: "pluralUnit.day"),
-                internationalControl.localizedString(key: "pluralUnit.week"),
-                internationalControl.localizedString(key: "pluralUnit.month"),
-                internationalControl.localizedString(key: "pluralUnit.year"),]
+        return [internationalControl.localizedString("pluralUnit.day"),
+                internationalControl.localizedString("pluralUnit.week"),
+                internationalControl.localizedString("pluralUnit.month"),
+                internationalControl.localizedString("pluralUnit.year"),]
     }
 }

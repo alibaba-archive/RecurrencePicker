@@ -28,9 +28,9 @@ let occurrenceDate = ...
 // initialization and configuration
 // RecurrencePicker can be initialized with a recurrence rule or nil, nil means "never repeat"
 let recurrencePicker = RecurrencePicker(recurrenceRule: recurrenceRule)
-recurrencePicker.language = .English
-recurrencePicker.calendar = NSCalendar.currentCalendar()
-recurrencePicker.tintColor = UIColor.blueColor()
+recurrencePicker.language = .english
+recurrencePicker.calendar = Calendar.current
+recurrencePicker.tintColor = UIColor.blue
 recurrencePicker.occurrenceDate = occurrenceDate
 
 // assign delegate
@@ -42,8 +42,8 @@ navigationController?.pushViewController(recurrencePicker, animated: true)
 
 #####  Implement the delegate
 ```swift
-func recurrencePicker(picker: RecurrencePicker, didPickRecurrence recurrenceRule: RecurrenceRule?) {
-// do something, if recurrenceRule is nil, that means "never repeat".
+func recurrencePicker(_ picker: RecurrencePicker, didPickRecurrence recurrenceRule: RecurrenceRule?) {
+    // do something, if recurrenceRule is nil, that means "never repeat".
 }
 ```
 
@@ -59,9 +59,9 @@ RecurrencePicker supports 5 languages: English, Simplified Chinese, Traditional 
 You can also get a localized rule text string like this:
 ```swift
 let ruleString = "RRULE:FREQ=WEEKLY;INTERVAL=2;WKST=MO;DTSTART=20160413T133011Z;BYDAY=TU,WE,FR"
-let recurrenceRule = RecurrenceRule(recurrenceWithRRuleString: ruleString)
+let recurrenceRule = RecurrenceRule(rruleString: ruleString)
 let language: RecurrencePickerLanguage = ...
-let recurrenceRuleText = recurrenceRule?.toText(language: language, occurrenceDate: NSDate())
+let recurrenceRuleText = recurrenceRule?.toText(of: language, occurrenceDate: Date())
 print(recurrenceRuleText)
 // Event will occur every 2 weeks on Tuesday, Wednesday and Friday.
 // 事件将每2周于星期二、星期三和星期五重复一次。

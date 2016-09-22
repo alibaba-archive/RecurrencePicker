@@ -11,19 +11,19 @@ import RRuleSwift
 
 public extension RecurrenceRule {
     public func isDailyRecurrence() -> Bool {
-        return frequency == .Daily && interval == 1
+        return frequency == .daily && interval == 1
     }
 
     public func isWeekdayRecurrence() -> Bool {
-        guard frequency == .Weekly && interval == 1 else {
+        guard frequency == .weekly && interval == 1 else {
             return false
         }
-        let byweekday = self.byweekday.sort(<)
-        return byweekday == [.Monday, .Tuesday, .Wednesday, .Thursday, .Friday].sort(<)
+        let byweekday = self.byweekday.sorted(by: <)
+        return byweekday == [.monday, .tuesday, .wednesday, .thursday, .friday].sorted(by: <)
     }
 
-    public func isWeeklyRecurrence(occurrenceDate occurrenceDate: NSDate) -> Bool {
-        guard frequency == .Weekly && interval == 1 else {
+    public func isWeeklyRecurrence(occurrence occurrenceDate: Date) -> Bool {
+        guard frequency == .weekly && interval == 1 else {
             return false
         }
         guard byweekday.count == 1 else {
@@ -33,12 +33,11 @@ public extension RecurrenceRule {
             return false
         }
         let weekday = byweekday.first!
-        let occurrenceDateComponents = calendar.components([.Weekday], fromDate: occurrenceDate)
-        return occurrenceDateComponents.weekday == weekday.rawValue
+        return calendar.component(.weekday, from: occurrenceDate) == weekday.rawValue
     }
 
-    public func isBiWeeklyRecurrence(occurrenceDate occurrenceDate: NSDate) -> Bool {
-        guard frequency == .Weekly && interval == 2 else {
+    public func isBiWeeklyRecurrence(occurrence occurrenceDate: Date) -> Bool {
+        guard frequency == .weekly && interval == 2 else {
             return false
         }
         guard byweekday.count == 1 else {
@@ -48,12 +47,11 @@ public extension RecurrenceRule {
             return false
         }
         let weekday = byweekday.first!
-        let occurrenceDateComponents = calendar.components([.Weekday], fromDate: occurrenceDate)
-        return occurrenceDateComponents.weekday == weekday.rawValue
+        return calendar.component(.weekday, from: occurrenceDate) == weekday.rawValue
     }
 
-    public func isMonthlyRecurrence(occurrenceDate occurrenceDate: NSDate) -> Bool {
-        guard frequency == .Monthly && interval == 1 else {
+    public func isMonthlyRecurrence(occurrence occurrenceDate: Date) -> Bool {
+        guard frequency == .monthly && interval == 1 else {
             return false
         }
         guard bymonthday.count == 1 else {
@@ -63,12 +61,11 @@ public extension RecurrenceRule {
             return false
         }
         let monthday = bymonthday.first!
-        let occurrenceDateComponents = calendar.components([.Day], fromDate: occurrenceDate)
-        return occurrenceDateComponents.day == monthday
+        return calendar.component(.day, from: occurrenceDate) == monthday
     }
 
-    public func isYearlyRecurrence(occurrenceDate occurrenceDate: NSDate) -> Bool {
-        guard frequency == .Yearly && interval == 1 else {
+    public func isYearlyRecurrence(occurrence occurrenceDate: Date) -> Bool {
+        guard frequency == .yearly && interval == 1 else {
             return false
         }
         guard bymonth.count == 1 else {
@@ -78,16 +75,15 @@ public extension RecurrenceRule {
             return false
         }
         let month = bymonth.first!
-        let occurrenceDateComponents = calendar.components([.Month], fromDate: occurrenceDate)
-        return occurrenceDateComponents.month == month
+        return calendar.component(.month, from: occurrenceDate) == month
     }
 
-    public func isCustomRecurrence(occurrenceDate occurrenceDate: NSDate) -> Bool {
+    public func isCustomRecurrence(occurrence occurrenceDate: Date) -> Bool {
         return !isDailyRecurrence() &&
             !isWeekdayRecurrence() &&
-            !isWeeklyRecurrence(occurrenceDate: occurrenceDate) &&
-            !isBiWeeklyRecurrence(occurrenceDate: occurrenceDate) &&
-            !isMonthlyRecurrence(occurrenceDate: occurrenceDate) &&
-            !isYearlyRecurrence(occurrenceDate: occurrenceDate)
+            !isWeeklyRecurrence(occurrence: occurrenceDate) &&
+            !isBiWeeklyRecurrence(occurrence: occurrenceDate) &&
+            !isMonthlyRecurrence(occurrence: occurrenceDate) &&
+            !isYearlyRecurrence(occurrence: occurrenceDate)
     }
 }
