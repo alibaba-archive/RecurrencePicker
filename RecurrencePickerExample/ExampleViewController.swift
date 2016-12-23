@@ -56,6 +56,7 @@ class ExampleViewController: UIViewController {
         recurrencePicker.separatorColor = UIColor(white: 221 / 255, alpha: 1)
         recurrencePicker.delegate = self
         navigationController?.pushViewController(recurrencePicker, animated: true)
+//        present(UINavigationController(rootViewController: recurrencePicker), animated: true, completion: nil)
     }
 
     @IBAction func datePickerPicked(_ sender: UIDatePicker) {

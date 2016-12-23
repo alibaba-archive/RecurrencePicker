@@ -6,6 +6,9 @@
   Copyright © 2016年 Teambition. All rights reserved.
 */
 
+"Done" = "완성하다";
+"Close" = "닫기";
+
 "frequency.daily" = "매일";
 "frequency.weekly" = "매주";
 "frequency.monthly" = "매월";

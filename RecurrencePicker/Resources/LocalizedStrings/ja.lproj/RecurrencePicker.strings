@@ -6,6 +6,9 @@
   Copyright © 2016年 Teambition. All rights reserved.
 */
 
+"Done" = "完成";
+"Close" = "閉鎖";
+
 "frequency.daily" = "毎日";
 "frequency.weekly" = "毎週";
 "frequency.monthly" = "毎月";

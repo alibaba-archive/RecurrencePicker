@@ -23,6 +23,11 @@ open class RecurrencePicker: UITableViewController {
     open var backgroundColor: UIColor?
     open var separatorColor: UIColor?
 
+    fileprivate var isModal: Bool {
+        return presentingViewController?.presentedViewController == self
+            || (navigationController != nil && navigationController?.presentingViewController?.presentedViewController == navigationController && navigationController?.viewControllers.first == self)
+            || tabBarController?.presentingViewController is UITabBarController
+    }
     fileprivate var recurrenceRule: RecurrenceRule?
     fileprivate var selectedIndexPath = IndexPath(row: 0, section: 0)
 
@@ -41,32 +46,19 @@ open class RecurrencePicker: UITableViewController {
     open override func didMove(toParentViewController parent: UIViewController?) {
         if parent == nil {
             // navigation is popped
-            if let rule = recurrenceRule {
-                switch rule.frequency {
-                case .daily:
-                    recurrenceRule?.byweekday.removeAll()
-                    recurrenceRule?.bymonthday.removeAll()
-                    recurrenceRule?.bymonth.removeAll()
-                case .weekly:
-                    recurrenceRule?.byweekday = rule.byweekday.sorted(by: <)
-                    recurrenceRule?.bymonthday.removeAll()
-                    recurrenceRule?.bymonth.removeAll()
-                case .monthly:
-                    recurrenceRule?.byweekday.removeAll()
-                    recurrenceRule?.bymonthday = rule.bymonthday.sorted(by: <)
-                    recurrenceRule?.bymonth.removeAll()
-                case .yearly:
-                    recurrenceRule?.byweekday.removeAll()
-                    recurrenceRule?.bymonthday.removeAll()
-                    recurrenceRule?.bymonth = rule.bymonth.sorted(by: <)
-                default:
-                    break
-                }
-            }
-            recurrenceRule?.startDate = Date()
-
-            delegate?.recurrencePicker(self, didPickRecurrence: recurrenceRule)
+            recurrencePickerDidPickRecurrence()
         }
+    }
+
+    // MARK: - Actions
+    func doneButtonTapped(_ sender: UIBarButtonItem) {
+        dismiss(animated: true) {
+            self.recurrencePickerDidPickRecurrence()
+        }
+    }
+
+    func closeButtonTapped(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -129,7 +121,9 @@ extension RecurrencePicker {
         if indexPath.section == 0 {
             updateRecurrenceRule(withSelectedIndexPath: indexPath)
             updateRecurrenceRuleText()
-            let _ = navigationController?.popViewController(animated: true)
+            if !isModal {
+                let _ = navigationController?.popViewController(animated: true)
+            }
         } else {
             let customRecurrenceViewController = CustomRecurrenceViewController(style: .grouped)
             customRecurrenceViewController.occurrenceDate = occurrenceDate
@@ -165,6 +159,10 @@ extension RecurrencePicker {
     // MARK: - Helper
     fileprivate func commonInit() {
         navigationItem.title = LocalizedString("RecurrencePicker.navigation.title")
+        if isModal {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: LocalizedString("Done"), style: .done, target: self, action: #selector(doneButtonTapped(_:)))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: LocalizedString("Close"), style: .done, target: self, action: #selector(closeButtonTapped(_:)))
+        }
         navigationController?.navigationBar.tintColor = tintColor
         tableView.tintColor = tintColor
         if let backgroundColor = backgroundColor {
@@ -239,9 +237,38 @@ extension RecurrencePicker {
         tableView.endUpdates()
         footerView?.setNeedsLayout()
     }
+
+    fileprivate func recurrencePickerDidPickRecurrence() {
+        if let rule = recurrenceRule {
+            switch rule.frequency {
+            case .daily:
+                recurrenceRule?.byweekday.removeAll()
+                recurrenceRule?.bymonthday.removeAll()
+                recurrenceRule?.bymonth.removeAll()
+            case .weekly:
+                recurrenceRule?.byweekday = rule.byweekday.sorted(by: <)
+                recurrenceRule?.bymonthday.removeAll()
+                recurrenceRule?.bymonth.removeAll()
+            case .monthly:
+                recurrenceRule?.byweekday.removeAll()
+                recurrenceRule?.bymonthday = rule.bymonthday.sorted(by: <)
+                recurrenceRule?.bymonth.removeAll()
+            case .yearly:
+                recurrenceRule?.byweekday.removeAll()
+                recurrenceRule?.bymonthday.removeAll()
+                recurrenceRule?.bymonth = rule.bymonth.sorted(by: <)
+            default:
+                break
+            }
+        }
+        recurrenceRule?.startDate = Date()
+
+        delegate?.recurrencePicker(self, didPickRecurrence: recurrenceRule)
+    }
 }
 
 extension RecurrencePicker: CustomRecurrenceViewControllerDelegate {
+    // MARK: - CustomRecurrenceViewController delegate
     func customRecurrenceViewController(_ controller: CustomRecurrenceViewController, didPickRecurrence recurrenceRule: RecurrenceRule) {
         self.recurrenceRule = recurrenceRule
         updateRecurrenceRuleText()
