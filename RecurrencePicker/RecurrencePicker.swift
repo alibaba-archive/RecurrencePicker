@@ -22,6 +22,8 @@ open class RecurrencePicker: UITableViewController {
     open var occurrenceDate = Date()
     open var backgroundColor: UIColor?
     open var separatorColor: UIColor?
+    open var supportedCustomRecurrenceFrequencies = Constant.frequencies
+    open var customRecurrenceMaximumInterval = Constant.pickerMaxRowCount
 
     fileprivate var isModal: Bool {
         return presentingViewController?.presentedViewController == self
@@ -130,6 +132,8 @@ extension RecurrencePicker {
             customRecurrenceViewController.tintColor = tintColor
             customRecurrenceViewController.backgroundColor = backgroundColor
             customRecurrenceViewController.separatorColor = separatorColor
+            customRecurrenceViewController.supportedFrequencies = supportedCustomRecurrenceFrequencies
+            customRecurrenceViewController.maximumInterval = customRecurrenceMaximumInterval
             customRecurrenceViewController.delegate = self
 
             var rule = recurrenceRule ?? RecurrenceRule.dailyRecurrence()

@@ -37,12 +37,26 @@ internal class PickerViewCell: UITableViewCell {
             }
         }
     }
+    internal var supportedFrequencies = Constant.frequencies {
+        didSet {
+            if style == .frequency, supportedFrequencies != oldValue {
+                pickerView.reloadComponent(0)
+            }
+        }
+    }
     internal var interval = 1 {
         didSet {
             if style == .interval {
                 if pickerView.selectedRow(inComponent: 0) != interval - 1 {
                     pickerView.selectRow(interval - 1, inComponent: 0, animated: false)
                 }
+            }
+        }
+    }
+    internal var maximumInterval = Constant.pickerMaxRowCount {
+        didSet {
+            if style == .interval, maximumInterval != oldValue {
+                pickerView.reloadComponent(0)
             }
         }
     }
@@ -62,10 +76,10 @@ extension PickerViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch style {
         case .frequency:
-            return Constant.frequencies.count
+            return supportedFrequencies.count
         case .interval:
             if component == 0 {
-                return Constant.pickerMaxRowCount
+                return maximumInterval
             } else {
                 return 1
             }
@@ -75,7 +89,7 @@ extension PickerViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch style {
         case .frequency:
-            return Constant.frequencyStrings()[row]
+            return Constant.frequencyStrings()[supportedFrequencies[row].number]
         case .interval:
             if component == 0 {
                 return String(row + 1)
@@ -93,7 +107,7 @@ extension PickerViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch style {
         case .frequency:
-            frequency = Constant.frequencies[row]
+            frequency = supportedFrequencies[row]
             delegate?.pickerViewCell(self, didSelectFrequency: frequency)
         case .interval:
             if component == 0 {

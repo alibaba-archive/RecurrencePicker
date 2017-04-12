@@ -54,6 +54,8 @@ class ExampleViewController: UIViewController {
         recurrencePicker.occurrenceDate = occurrenceDate
         recurrencePicker.backgroundColor = UIColor(white: 242 / 255, alpha: 1)
         recurrencePicker.separatorColor = UIColor(white: 221 / 255, alpha: 1)
+//        recurrencePicker.supportedCustomRecurrenceFrequencies = [.weekly, .monthly, .hourly, .daily]
+//        recurrencePicker.customRecurrenceMaximumInterval = 10
         recurrencePicker.delegate = self
         navigationController?.pushViewController(recurrencePicker, animated: true)
 //        present(UINavigationController(rootViewController: recurrencePicker), animated: true, completion: nil)

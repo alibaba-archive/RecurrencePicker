@@ -21,6 +21,8 @@ internal class CustomRecurrenceViewController: UITableViewController {
     internal var recurrenceRule: RecurrenceRule!
     internal var backgroundColor: UIColor?
     internal var separatorColor: UIColor?
+    internal var supportedFrequencies = Constant.frequencies
+    internal var maximumInterval = Constant.pickerMaxRowCount
 
     fileprivate var isShowingPickerView = false
     fileprivate var pickerViewStyle: PickerViewCellStyle = .frequency
@@ -182,6 +184,12 @@ extension CustomRecurrenceViewController {
             cell.style = pickerViewStyle
             cell.frequency = recurrenceRule.frequency
             cell.interval = recurrenceRule.interval
+            let supportedFrequencies: [RecurrenceFrequency] = {
+                let frequencies = self.supportedFrequencies.filter { Constant.frequencies.contains($0) }.sorted { $0.number < $1.number }
+                return frequencies.isEmpty ? Constant.frequencies : frequencies
+            }()
+            cell.supportedFrequencies = supportedFrequencies
+            cell.maximumInterval = max(maximumInterval, 1)
 
             return cell
         } else if isSelectorViewCell(at: indexPath) {
