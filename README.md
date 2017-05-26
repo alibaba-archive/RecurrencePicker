@@ -1,24 +1,24 @@
-#RecurrencePicker
+# RecurrencePicker
 An event recurrence rule picker similar to iOS system calendar. 
 
 ![Example](Gif/RecurrencePickerExample.gif "RecurrencePickerExample")
 
-##How To Get Started
-###Carthage
+## How To Get Started
+### Carthage
 Specify "RecurrencePicker" in your ```Cartfile```:
 ```ogdl 
 github "teambition/RecurrencePicker"
 ```
 
-###Usage
-##### Import necessary frameworks
+### Usage
+#### Import necessary frameworks
 ```swift
 import RRuleSwift
 import EventKit
 import RecurrencePicker
 ```
 
-#####  Initialization and Configuration
+####  Initialization and Configuration
 ```swift
 // prepare a recurrence rule and an occurrence date
 // occurrence date is the date which the repeat event occurs this time
@@ -40,7 +40,7 @@ recurrencePicker.delegate = self
 navigationController?.pushViewController(recurrencePicker, animated: true)
 ```
 
-#####  Implement the delegate
+####  Implement the delegate
 ```swift
 func recurrencePicker(_ picker: RecurrencePicker, didPickRecurrence recurrenceRule: RecurrenceRule?) {
     // do something, if recurrenceRule is nil, that means "never repeat".
@@ -50,10 +50,10 @@ func recurrencePicker(_ picker: RecurrencePicker, didPickRecurrence recurrenceRu
 ## Minimum Requirement
 iOS 8.0
 
-##Dependency
+## Dependency
 RecurrencePicker's running requires [RRuleSwift](https://github.com/teambition/RRuleSwift).
 
-##Localization
+## Localization
 RecurrencePicker supports 5 languages: English, Simplified Chinese, Traditional Chinese, Korean, Japanese. You can set the language when initialization.
 
 You can also get a localized rule text string like this:
