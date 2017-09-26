@@ -13,7 +13,7 @@ import RRuleSwift
 open class RecurrencePicker: UITableViewController {
     open var language: RecurrencePickerLanguage = .english {
         didSet {
-            InternationalControl.sharedControl.language = language
+            InternationalControl.shared.language = language
         }
     }
     open weak var delegate: RecurrencePickerDelegate?
@@ -53,13 +53,13 @@ open class RecurrencePicker: UITableViewController {
     }
 
     // MARK: - Actions
-    func doneButtonTapped(_ sender: UIBarButtonItem) {
+    @objc func doneButtonTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true) {
             self.recurrencePickerDidPickRecurrence()
         }
     }
 
-    func closeButtonTapped(_ sender: UIBarButtonItem) {
+    @objc func closeButtonTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 }

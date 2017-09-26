@@ -66,7 +66,7 @@ class ExampleViewController: UIViewController {
         updateResultTextView()
     }
 
-    func switchLanguageButtonTapped(_ sender: UIBarButtonItem) {
+    @objc func switchLanguageButtonTapped(_ sender: UIBarButtonItem) {
         let languageViewController = LanguageViewController(style: .grouped)
         let navigationController = UINavigationController(rootViewController: languageViewController)
         languageViewController.language = language

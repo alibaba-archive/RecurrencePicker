@@ -27,12 +27,12 @@ public enum RecurrencePickerLanguage {
 }
 
 internal func LocalizedString(_ key: String, comment: String? = nil) -> String {
-    return InternationalControl.sharedControl.localizedString(key, comment: comment)
+    return InternationalControl.shared.localizedString(key, comment: comment)
 }
 
-internal struct InternationalControl {
-    internal static var sharedControl = InternationalControl()
-    internal var language: RecurrencePickerLanguage = .english
+public struct InternationalControl {
+    public static var shared = InternationalControl()
+    public var language: RecurrencePickerLanguage = .english
 
     internal func localizedString(_ key: String, comment: String? = nil) -> String {
         let path = Bundle(identifier: "Teambition.RecurrencePicker")?.path(forResource: language.identifier, ofType: "lproj") ?? Bundle.main.path(forResource: language.identifier, ofType: "lproj")

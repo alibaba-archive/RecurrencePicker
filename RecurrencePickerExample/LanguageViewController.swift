@@ -26,7 +26,7 @@ class LanguageViewController: UITableViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonTapped))
     }
 
-    func cancelButtonTapped() {
+    @objc func cancelButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
 

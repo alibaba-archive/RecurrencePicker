@@ -41,7 +41,7 @@ internal extension Constant {
         return [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
     }()
 
-    static func weekdaySymbols(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+    static func weekdaySymbols(of language: RecurrencePickerLanguage = InternationalControl.shared.language) -> [String] {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: language.identifier)
         var weekdaySymbols = dateFormatter.weekdaySymbols!
@@ -49,19 +49,19 @@ internal extension Constant {
         return weekdaySymbols
     }
 
-    static func shortMonthSymbols(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+    static func shortMonthSymbols(of language: RecurrencePickerLanguage = InternationalControl.shared.language) -> [String] {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: language.identifier)
         return dateFormatter.shortMonthSymbols
     }
 
-    static func monthSymbols(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+    static func monthSymbols(of language: RecurrencePickerLanguage = InternationalControl.shared.language) -> [String] {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: language.identifier)
         return dateFormatter.monthSymbols
     }
 
-    static func basicRecurrenceStrings(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+    static func basicRecurrenceStrings(of language: RecurrencePickerLanguage = InternationalControl.shared.language) -> [String] {
         let internationalControl = InternationalControl(language: language)
         return [internationalControl.localizedString("basicRecurrence.never"),
                 internationalControl.localizedString("basicRecurrence.everyDay"),
@@ -72,7 +72,7 @@ internal extension Constant {
                 internationalControl.localizedString("basicRecurrence.everyWeekday"),]
     }
 
-    static func frequencyStrings(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+    static func frequencyStrings(of language: RecurrencePickerLanguage = InternationalControl.shared.language) -> [String] {
         let internationalControl = InternationalControl(language: language)
         return [internationalControl.localizedString("frequency.daily"),
                 internationalControl.localizedString("frequency.weekly"),
@@ -80,7 +80,7 @@ internal extension Constant {
                 internationalControl.localizedString("frequency.yearly"),]
     }
 
-    static func unitStrings(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+    static func unitStrings(of language: RecurrencePickerLanguage = InternationalControl.shared.language) -> [String] {
         let internationalControl = InternationalControl(language: language)
         return [internationalControl.localizedString("unit.day"),
                 internationalControl.localizedString("unit.week"),
@@ -88,7 +88,7 @@ internal extension Constant {
                 internationalControl.localizedString("unit.year"),]
     }
 
-    static func pluralUnitStrings(of language: RecurrencePickerLanguage = InternationalControl.sharedControl.language) -> [String] {
+    static func pluralUnitStrings(of language: RecurrencePickerLanguage = InternationalControl.shared.language) -> [String] {
         let internationalControl = InternationalControl(language: language)
         return [internationalControl.localizedString("pluralUnit.day"),
                 internationalControl.localizedString("pluralUnit.week"),
