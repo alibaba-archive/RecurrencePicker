@@ -12,4 +12,5 @@ Pod::Spec.new do |s|
   s.source_files = 'RecurrencePicker/*.swift', 'RecurrencePicker/*.xib'
   s.resources = 'RecurrencePicker/Resources/*'
   s.requires_arc = true
+  s.dependency 'RRuleSwift'
 end
