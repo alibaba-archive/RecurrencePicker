@@ -45,7 +45,7 @@ open class RecurrencePicker: UITableViewController {
         commonInit()
     }
 
-    open override func didMove(toParentViewController parent: UIViewController?) {
+    open override func didMove(toParent parent: UIViewController?) {
         if parent == nil {
             // navigation is popped
             recurrencePickerDidPickRecurrence()
