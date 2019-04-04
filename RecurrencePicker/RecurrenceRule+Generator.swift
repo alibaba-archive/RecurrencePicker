@@ -11,34 +11,34 @@ import EventKit
 import RRuleSwift
 
 public extension RecurrenceRule {
-    public static func dailyRecurrence() -> RecurrenceRule {
+    static func dailyRecurrence() -> RecurrenceRule {
         var recurrenceRule = RecurrenceRule(frequency: .daily)
         recurrenceRule.interval = 1
         return recurrenceRule
     }
 
-    public static func weekdayRecurrence() -> RecurrenceRule {
+    static func weekdayRecurrence() -> RecurrenceRule {
         var recurrenceRule = RecurrenceRule(frequency: .weekly)
         recurrenceRule.interval = 1
         recurrenceRule.byweekday = [.monday, .tuesday, .wednesday, .thursday, .friday]
         return recurrenceRule
     }
 
-    public static func weeklyRecurrence(withWeekday weekday: EKWeekday) -> RecurrenceRule {
+    static func weeklyRecurrence(withWeekday weekday: EKWeekday) -> RecurrenceRule {
         var recurrenceRule = RecurrenceRule(frequency: .weekly)
         recurrenceRule.interval = 1
         recurrenceRule.byweekday = [weekday]
         return recurrenceRule
     }
 
-    public static func biWeeklyRecurrence(withWeekday weekday: EKWeekday) -> RecurrenceRule {
+    static func biWeeklyRecurrence(withWeekday weekday: EKWeekday) -> RecurrenceRule {
         var recurrenceRule = RecurrenceRule(frequency: .weekly)
         recurrenceRule.interval = 2
         recurrenceRule.byweekday = [weekday]
         return recurrenceRule
     }
 
-    public static func monthlyRecurrence(withMonthday monthday: Int) -> RecurrenceRule {
+    static func monthlyRecurrence(withMonthday monthday: Int) -> RecurrenceRule {
         var recurrenceRule = RecurrenceRule(frequency: .monthly)
         recurrenceRule.interval = 1
         if (-31...31 ~= monthday) && (monthday != 0) {
@@ -47,7 +47,7 @@ public extension RecurrenceRule {
         return recurrenceRule
     }
 
-    public static func yearlyRecurrence(withMonth month: Int) -> RecurrenceRule {
+    static func yearlyRecurrence(withMonth month: Int) -> RecurrenceRule {
         var recurrenceRule = RecurrenceRule(frequency: .yearly)
         recurrenceRule.interval = 1
         if 1...12 ~= month {

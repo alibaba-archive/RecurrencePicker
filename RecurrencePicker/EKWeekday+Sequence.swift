@@ -10,7 +10,7 @@ import Foundation
 import EventKit
 
 internal extension EKWeekday {
-    internal var number: Int {
+    var number: Int {
         switch self {
         case .monday: return 0
         case .tuesday: return 1

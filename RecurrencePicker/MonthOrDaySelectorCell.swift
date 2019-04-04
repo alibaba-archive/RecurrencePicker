@@ -163,7 +163,7 @@ extension MonthOrDaySelectorCell: UICollectionViewDataSource, UICollectionViewDe
                 let shouldDeselectDay = delegate?.monthOrDaySelectorCell(self, shouldDeselectMonthday: monthday) ?? true
                 if shouldDeselectDay {
                     cell.setItemSelected(false)
-                    if let index = bymonthday.index(of: monthday) {
+                    if let index = bymonthday.firstIndex(of: monthday) {
                         bymonthday.remove(at: index)
                     }
                     delegate?.monthOrDaySelectorCell(self, didDeselectMonthday: monthday)
@@ -179,7 +179,7 @@ extension MonthOrDaySelectorCell: UICollectionViewDataSource, UICollectionViewDe
                 let shouldDeselectMonth = delegate?.monthOrDaySelectorCell(self, shouldDeselectMonth: month) ?? true
                 if shouldDeselectMonth {
                     cell.setItemSelected(false)
-                    if let index = bymonth.index(of: month) {
+                    if let index = bymonth.firstIndex(of: month) {
                         bymonth.remove(at: index)
                     }
                     delegate?.monthOrDaySelectorCell(self, didDeselectMonth: month)

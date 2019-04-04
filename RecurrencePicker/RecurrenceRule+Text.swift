@@ -10,7 +10,7 @@ import Foundation
 import RRuleSwift
 
 public extension RecurrenceRule {
-    public func toText(of language: RecurrencePickerLanguage = InternationalControl.shared.language, occurrenceDate: Date) -> String? {
+    func toText(of language: RecurrencePickerLanguage = InternationalControl.shared.language, occurrenceDate: Date) -> String? {
         let internationalControl = InternationalControl(language: language)
         let unit = Constant.unitStrings(of: language)[frequency.number]
         let pluralUnit = Constant.pluralUnitStrings(of: language)[frequency.number]

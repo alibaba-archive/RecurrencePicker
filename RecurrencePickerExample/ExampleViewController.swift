@@ -31,7 +31,7 @@ class ExampleViewController: UIViewController {
 
     // MARK: - Helper
     fileprivate func updateLanguageButtonTitle() {
-        guard let index = languages.index(of: language) else {
+        guard let index = languages.firstIndex(of: language) else {
             return
         }
         let languageTitle = languageStrings[index]

@@ -200,13 +200,13 @@
 				TargetAttributes = {
 					D3BB7F121CB4F26A0068A253 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
 			buildConfigurationList = D3BB7F0D1CB4F26A0068A253 /* Build configuration list for PBXProject "RecurrencePicker" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -214,6 +214,7 @@
 				ko,
 				"zh-Hans",
 				"zh-Hant",
+				Base,
 			);
 			mainGroup = D3BB7F091CB4F26A0068A253;
 			productRefGroup = D3BB7F141CB4F26A0068A253 /* Products */;
@@ -417,8 +418,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -441,8 +441,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Teambition.RecurrencePicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

@@ -298,7 +298,7 @@ extension CustomRecurrenceViewController {
                 if recurrenceRule.byweekday == [weekday] {
                     return
                 }
-                let index = recurrenceRule.byweekday.index(of: weekday)!
+                let index = recurrenceRule.byweekday.firstIndex(of: weekday)!
                 recurrenceRule.byweekday.remove(at: index)
                 cell?.accessoryType = .none
                 updateRecurrenceRuleText()
@@ -369,7 +369,7 @@ extension CustomRecurrenceViewController: MonthOrDaySelectorCellDelegate {
             tableView.endUpdates()
             updateDetailTextColor()
         }
-        if let index = recurrenceRule.bymonthday.index(of: monthday) {
+        if let index = recurrenceRule.bymonthday.firstIndex(of: monthday) {
             recurrenceRule.bymonthday.remove(at: index)
             updateRecurrenceRuleText()
         }
@@ -399,7 +399,7 @@ extension CustomRecurrenceViewController: MonthOrDaySelectorCellDelegate {
             tableView.endUpdates()
             updateDetailTextColor()
         }
-        if let index = recurrenceRule.bymonth.index(of: month) {
+        if let index = recurrenceRule.bymonth.firstIndex(of: month) {
             recurrenceRule.bymonth.remove(at: index)
             updateRecurrenceRuleText()
         }

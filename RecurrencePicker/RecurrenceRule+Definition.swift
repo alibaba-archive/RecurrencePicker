@@ -10,11 +10,11 @@ import Foundation
 import RRuleSwift
 
 public extension RecurrenceRule {
-    public func isDailyRecurrence() -> Bool {
+    func isDailyRecurrence() -> Bool {
         return frequency == .daily && interval == 1
     }
 
-    public func isWeekdayRecurrence() -> Bool {
+    func isWeekdayRecurrence() -> Bool {
         guard frequency == .weekly && interval == 1 else {
             return false
         }
@@ -22,7 +22,7 @@ public extension RecurrenceRule {
         return byweekday == [.monday, .tuesday, .wednesday, .thursday, .friday].sorted(by: <)
     }
 
-    public func isWeeklyRecurrence(occurrence occurrenceDate: Date) -> Bool {
+    func isWeeklyRecurrence(occurrence occurrenceDate: Date) -> Bool {
         guard frequency == .weekly && interval == 1 else {
             return false
         }
@@ -36,7 +36,7 @@ public extension RecurrenceRule {
         return calendar.component(.weekday, from: occurrenceDate) == weekday.rawValue
     }
 
-    public func isBiWeeklyRecurrence(occurrence occurrenceDate: Date) -> Bool {
+    func isBiWeeklyRecurrence(occurrence occurrenceDate: Date) -> Bool {
         guard frequency == .weekly && interval == 2 else {
             return false
         }
@@ -50,7 +50,7 @@ public extension RecurrenceRule {
         return calendar.component(.weekday, from: occurrenceDate) == weekday.rawValue
     }
 
-    public func isMonthlyRecurrence(occurrence occurrenceDate: Date) -> Bool {
+    func isMonthlyRecurrence(occurrence occurrenceDate: Date) -> Bool {
         guard frequency == .monthly && interval == 1 else {
             return false
         }
@@ -64,7 +64,7 @@ public extension RecurrenceRule {
         return calendar.component(.day, from: occurrenceDate) == monthday
     }
 
-    public func isYearlyRecurrence(occurrence occurrenceDate: Date) -> Bool {
+    func isYearlyRecurrence(occurrence occurrenceDate: Date) -> Bool {
         guard frequency == .yearly && interval == 1 else {
             return false
         }
@@ -78,7 +78,7 @@ public extension RecurrenceRule {
         return calendar.component(.month, from: occurrenceDate) == month
     }
 
-    public func isCustomRecurrence(occurrence occurrenceDate: Date) -> Bool {
+    func isCustomRecurrence(occurrence occurrenceDate: Date) -> Bool {
         return !isDailyRecurrence() &&
             !isWeekdayRecurrence() &&
             !isWeeklyRecurrence(occurrence: occurrenceDate) &&

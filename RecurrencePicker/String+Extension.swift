@@ -9,11 +9,11 @@
 import Foundation
 
 internal extension String {
-    internal mutating func removeSubstring(_ substring: String) {
+    mutating func removeSubstring(_ substring: String) {
         self = replacingOccurrences(of: substring, with: "", options: .literal, range: nil)
     }
 
-    internal static func sequenceNumberString(of number: Int) -> String {
+    static func sequenceNumberString(of number: Int) -> String {
         var suffix = "th"
         let ones = number % 10
         let tens = (number / 10) % 10

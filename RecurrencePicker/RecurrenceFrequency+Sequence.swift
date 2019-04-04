@@ -10,7 +10,7 @@ import Foundation
 import RRuleSwift
 
 internal extension RecurrenceFrequency {
-    internal var number: Int {
+    var number: Int {
         switch self {
         case .daily: return 0
         case .weekly: return 1
